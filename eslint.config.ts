@@ -20,3 +20,13 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
   skipFormatting,
 )
+
+export const overrides = [
+  {
+    files: ['*.ts', '*.tsx', '*.vue'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
+    },
+  },
+]
