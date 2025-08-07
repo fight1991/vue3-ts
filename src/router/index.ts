@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TabView from '@/layout/TabView.vue'
+import MainLayout from '@/layout/Main.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,7 +9,7 @@ const router = createRouter({
     {
       path: '/tab-view',
       name: 'tab-view',
-      component: TabView,
+      component: MainLayout,
       children: [
         {
           path: '/',
