@@ -4,9 +4,11 @@ import { KeepAlive } from 'vue'
 </script>
 
 <template>
-  <KeepAlive :exclude="['sign-in', 'sign-up']">
-    <RouterView />
-  </KeepAlive>
+  <RouterView v-slot="{ Component }">
+    <KeepAlive>
+      <component :is="Component" />
+    </KeepAlive>
+  </RouterView>
 </template>
 
 <style scoped lang="scss"></style>
