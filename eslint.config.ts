@@ -19,14 +19,13 @@ export default defineConfigWithVueTs(
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
   skipFormatting,
-)
 
-export const overrides = [
+  // 自定义规则配置
   {
-    files: ['*.ts', '*.tsx', '*.vue'],
+    name: 'app/custom-rules',
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
       'no-unused-vars': 'off',
     },
   },
-]
+)
