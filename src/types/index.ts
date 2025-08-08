@@ -14,3 +14,12 @@ export interface RoutePath {
   component?: Component
   children?: RoutePath[]
 }
+export interface TabItemProps<T = Record<string, unknown>, Y = Record<string, unknown>> {
+  title: string
+  name: string
+  isShow: boolean
+  components: Component[]
+  query?: T
+  params?: Y
+  loadingNum?: number
+}
