@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TabView from '@/layout/TabView.vue'
 import MainLayout from '@/layout/Main.vue'
-// import mainRoutes from './entry'
-// console.log(mainRoutes)
+import mainRoutes from './entry'
+console.log(mainRoutes)
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
