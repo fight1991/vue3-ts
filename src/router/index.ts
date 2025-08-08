@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TabView from '@/layout/TabView.vue'
 import MainView from '@/layout/MainView.vue'
@@ -25,7 +25,7 @@ const router = createRouter({
       path: '/tab/view',
       name: 'tab-view',
       component: MainView,
-      children: [...mainRoutes],
+      children: [...mainRoutes] as RouteRecordRaw[],
     },
   ],
 })

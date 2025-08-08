@@ -11,5 +11,6 @@ export interface RoutePath {
   name?: string
   hidden?: boolean
   meta?: Meta
+  component?: Component
   children?: RoutePath[]
 }

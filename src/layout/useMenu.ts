@@ -10,23 +10,25 @@ export interface MenuItemProps {
   children?: MenuItemProps[]
 }
 
-// 递归生成菜单数据，返回树形结构
+// 递归生成菜单数据，过滤掉为hidden为true的情况, 返回树形结构
 const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
-  return routes.map((route) => {
-    const menuItem: MenuItemProps = {
-      key: route.path,
-      label: route.meta?.title || route.name || route.path,
-      // 图标先暂时这么写
-      icon: () => h(MailOutlined),
-    }
+  return routes
+    .filter((route) => !route.hidden)
+    .map((route) => {
+      const menuItem: MenuItemProps = {
+        key: route.path,
+        label: route.meta?.title || route.name || route.path,
+        // 图标先暂时这么写
+        icon: () => h(MailOutlined),
+      }
 
-    // 如果有子路由，递归生成子菜单
-    if (route.children && route.children.length > 0) {
-      menuItem.children = generateMenu(route.children)
-    }
+      // 如果有子路由，递归生成子菜单
+      if (route.children && route.children.length > 0) {
+        menuItem.children = generateMenu(route.children)
+      }
 
-    return menuItem
-  })
+      return menuItem
+    })
 }
 
 // 递归查找路径对应的所有父级菜单 key

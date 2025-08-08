@@ -1,5 +1,6 @@
 import type { RoutePath } from '@/types'
 import { h } from 'vue'
+import { RouterView } from 'vue-router'
 
 const routes: RoutePath = {
   iconName: 'iconName-orders',
@@ -10,7 +11,6 @@ const routes: RoutePath = {
     permission: '1203000000',
     title: '一级菜单',
   },
-
   children: [
     {
       path: '/a1/b1',
