@@ -77,4 +77,20 @@ onMounted(() => {})
     overflow: auto;
   }
 }
+.content-outer {
+  flex: 1;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  .content-inner {
+    height: 100%;
+    overflow: auto;
+  }
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
 </style>

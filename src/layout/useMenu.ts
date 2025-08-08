@@ -2,6 +2,7 @@ import type { RoutePath } from '@/types'
 import { h, ref, type Component } from 'vue'
 import mainRoutesPaths from '@/router/entry'
 import type { ItemType } from 'ant-design-vue/es/menu'
+import { MailOutlined } from '@ant-design/icons-vue'
 export interface MenuItemProps {
   key: string
   icon: Component
@@ -15,7 +16,8 @@ const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
     const menuItem: MenuItemProps = {
       key: route.path,
       label: route.meta?.title || route.name || route.path,
-      icon: h(route.iconName ?? 'span'),
+      // 图标先暂时这么写
+      icon: () => h(MailOutlined),
     }
 
     // 如果有子路由，递归生成子菜单

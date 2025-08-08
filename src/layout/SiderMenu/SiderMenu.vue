@@ -30,7 +30,15 @@ onMounted(() => {})
     overflow: auto;
   }
 }
+
 .ant-menu {
   overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
 }
 </style>
