@@ -6,8 +6,15 @@
   </a-tabs>
 </template>
 <script lang="ts" setup>
+import type { Key } from 'ant-design-vue/es/_util/type'
 import { ref } from 'vue'
-const panes = ref<{ title: string; content: string; key: string; closable?: boolean }[]>([
+interface TabPaneProps {
+  title?: string
+  content?: string
+  key?: string
+  closable?: boolean
+}
+const panes = ref<TabPaneProps[]>([
   { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
   { title: 'Tab 2', content: 'Content of Tab 2', key: '2' },
   { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable: false },
@@ -22,7 +29,7 @@ const add = () => {
   panes.value.push({ title: 'New Tab', content: 'Content of new Tab', key: activeKey.value })
 }
 
-const remove = (targetKey: string) => {
+const remove = (targetKey: Key) => {
   let lastIndex = 0
   panes.value.forEach((pane, i) => {
     if (pane.key === targetKey) {
@@ -39,11 +46,14 @@ const remove = (targetKey: string) => {
   }
 }
 
-const onEdit = (targetKey: string | MouseEvent, action: string) => {
+const onEdit = (e: Key | MouseEvent | KeyboardEvent, action: 'add' | 'remove') => {
   if (action === 'add') {
     add()
   } else {
-    remove(targetKey as string)
+    // Only call remove if e is a string or number (Key)
+    if (typeof e === 'string' || typeof e === 'number') {
+      remove(e)
+    }
   }
 }
 </script>
