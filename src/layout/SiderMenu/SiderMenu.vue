@@ -1,27 +1,49 @@
 <template>
   <div class="menu-box">
     <div class="menu-scroll">
-      <a-menu :activeKey="route.path" :items="menuData" theme="dark" mode="inline">
+      <a-menu
+        v-model:selectedKeys="selectedKeys"
+        v-model:openKeys="openKeys"
+        :items="menuData"
+        theme="dark"
+        mode="inline"
+        @select="handleSelect"
+      >
         <!-- <SiderMenuItem v-for="item in menuData" :key="item?.key" :menuItem="item" /> -->
       </a-menu>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue'
 
 import type { ItemType } from 'ant-design-vue'
 
 import SiderMenuItem from './SiderMenuItem.vue'
 import { useMenuDataFromRoute, type MenuItemProps } from '../useMenu'
 import { useRoute } from 'vue-router'
-const menuData = useMenuDataFromRoute<ItemType>()
-console.log('menuData', menuData.value)
-const selectedKeys = ref<string[]>(['1'])
+import router from '@/router'
+import type { SelectInfo } from 'ant-design-vue/es/menu/src/interface'
+
+// 解构 useMenuDataFromRoute 的返回值
+const { menuData, getOpenKeysFromPath } = useMenuDataFromRoute<ItemType>()
+const selectedKeys = ref<string[]>([])
+const openKeys = ref<string[]>([])
 const collapsed = ref<boolean>(false)
+
 // 获取当前路由对象
 const route = useRoute()
-onMounted(() => {})
+
+// 刷新浏览器场景时, 侧边栏要展开
+onMounted(() => {
+  openKeys.value = getOpenKeysFromPath(route.path)
+  selectedKeys.value = [route.path]
+})
+
+const handleSelect = ({ key }: SelectInfo) => {
+  // 路由跳转
+  router.push(key as string)
+}
 </script>
 
 <style scoped>

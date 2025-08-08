@@ -29,11 +29,46 @@ const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
   })
 }
 
+// 递归查找路径对应的所有父级菜单 key
+const findParentKeys = (
+  menuItems: MenuItemProps[],
+  targetPath: string,
+  parentKeys: string[] = [],
+): string[] => {
+  for (const item of menuItems) {
+    const currentKeys = [...parentKeys, item.key]
+
+    // 如果当前项匹配目标路径，返回父级keys（不包含当前项）
+    if (item.key === targetPath) {
+      return parentKeys
+    }
+
+    // 如果有子菜单，递归查找
+    if (item.children && item.children.length > 0) {
+      const result = findParentKeys(item.children, targetPath, currentKeys)
+      if (result.length > 0) {
+        return result
+      }
+    }
+  }
+
+  return []
+}
+
+// 根据当前路由路径获取需要展开的菜单 keys
+export const getOpenKeysFromPath = (menuItems: MenuItemProps[], currentPath: string): string[] => {
+  return findParentKeys(menuItems, currentPath)
+}
+
 export const useMenuDataFromRoute = <T>() => {
   const menuData = ref<T[]>([])
 
   // 生成菜单数据
   menuData.value = generateMenu(mainRoutesPaths) as T[]
 
-  return menuData
+  return {
+    menuData,
+    getOpenKeysFromPath: (currentPath: string) =>
+      getOpenKeysFromPath(menuData.value as MenuItemProps[], currentPath),
+  }
 }
