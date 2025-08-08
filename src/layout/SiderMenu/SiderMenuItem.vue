@@ -3,7 +3,7 @@
     <!-- 一级菜单 -->
     <template v-if="onlyFirstMenu">
       <a-menu-item :key="props.menuItem?.key">
-        <component :is="props.menuItem?.icon" />
+        <component :is="props.menuItem?.icon ?? UserOutlined" />
         <span>{{ props.menuItem?.label }}</span>
       </a-menu-item>
     </template>
@@ -36,14 +36,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { ItemType } from 'ant-design-vue'
-import { computed, type Component } from 'vue'
-interface MenuItemProps {
-  key: string
-  icon: Component
-  label: string
-  children?: MenuItemProps[]
-}
+import { computed } from 'vue'
+import type { MenuItemProps } from '../useMenu'
+import { UserOutlined } from '@ant-design/icons-vue'
 interface Iprops {
   menuItem?: MenuItemProps
 }

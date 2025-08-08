@@ -34,27 +34,15 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons-vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import TabGroup from './TabGroup.vue'
-import type { ItemType } from 'ant-design-vue'
-import mainRoutesPaths from '@/router/entry'
-const selectedKeys = ref<string[]>(['1'])
+import SiderMenu from './SiderMenu/SiderMenu.vue'
+
 const collapsed = ref<boolean>(false)
-const menuData = reactive<ItemType[]>([])
+
 onMounted(() => {})
 </script>
 
-<script lang="ts">
-export default {
-  name: 'MainLayout',
-}
-</script>
 <style scoped>
 .trigger {
   font-size: 18px;

@@ -9,27 +9,18 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from '@ant-design/icons-vue'
 
 import type { ItemType } from 'ant-design-vue'
-import mainRoutesPaths from '@/router/entry'
+
+import SiderMenuItem from './SiderMenuItem.vue'
+import { useMenuDataFromRoute } from '../useMenu'
+const menuData = useMenuDataFromRoute<ItemType[]>()
 const selectedKeys = ref<string[]>(['1'])
 const collapsed = ref<boolean>(false)
-const menuData = reactive<ItemType[]>([])
+
 onMounted(() => {})
 </script>
 
-<script lang="ts">
-export default {
-  name: 'MainLayout',
-}
-</script>
 <style scoped>
 .menu-box {
   flex: 1;

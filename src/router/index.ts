@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TabView from '@/layout/TabView.vue'
-import MainLayout from '@/layout/Main.vue'
+import MainLayout from '@/layout/MainView.vue'
 import mainRoutes from './entry'
 console.log(mainRoutes)
 const router = createRouter({
