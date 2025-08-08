@@ -10,6 +10,7 @@ const routes: RoutePath = {
     permission: '1203000000',
     title: '一级菜单',
   },
+
   children: [
     {
       path: '/a1/b1',
