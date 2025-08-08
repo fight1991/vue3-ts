@@ -1,8 +1,8 @@
 <template>
   <div class="menu-box">
     <div class="menu-scroll">
-      <a-menu :items="menuData" v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-        <SiderMenuItem v-for="item in menuData" :key="'menu' + item?.key" />
+      <a-menu :activeKey="route.path" :items="menuData" theme="dark" mode="inline">
+        <!-- <SiderMenuItem v-for="item in menuData" :key="item?.key" :menuItem="item" /> -->
       </a-menu>
     </div>
   </div>
@@ -13,11 +13,14 @@ import { onMounted, reactive, ref } from 'vue'
 import type { ItemType } from 'ant-design-vue'
 
 import SiderMenuItem from './SiderMenuItem.vue'
-import { useMenuDataFromRoute } from '../useMenu'
-const menuData = useMenuDataFromRoute<ItemType[]>()
+import { useMenuDataFromRoute, type MenuItemProps } from '../useMenu'
+import { useRoute } from 'vue-router'
+const menuData = useMenuDataFromRoute<ItemType>()
+console.log('menuData', menuData.value)
 const selectedKeys = ref<string[]>(['1'])
 const collapsed = ref<boolean>(false)
-
+// 获取当前路由对象
+const route = useRoute()
 onMounted(() => {})
 </script>
 

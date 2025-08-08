@@ -3,7 +3,7 @@
     <!-- 一级菜单 -->
     <template v-if="onlyFirstMenu">
       <a-menu-item :key="props.menuItem?.key">
-        <component :is="props.menuItem?.icon ?? UserOutlined" />
+        <component :is="props.menuItem?.icon" />
         <span>{{ props.menuItem?.label }}</span>
       </a-menu-item>
     </template>
@@ -17,7 +17,7 @@
         </template>
         <template v-for="child in props.menuItem?.children">
           <!-- 递归 -->
-          <SiderMenu
+          <SiderMenuItem
             v-if="child.children && child.children.length > 0"
             :menuItem="child"
             :key="child.key"

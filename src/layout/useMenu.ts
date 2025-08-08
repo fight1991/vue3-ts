@@ -30,10 +30,10 @@ const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
 }
 
 export const useMenuDataFromRoute = <T>() => {
-  const menuData = ref<MenuItemProps[]>([])
+  const menuData = ref<T[]>([])
 
   // 生成菜单数据
-  menuData.value = generateMenu(mainRoutesPaths)
+  menuData.value = generateMenu(mainRoutesPaths) as T[]
 
-  return menuData as T
+  return menuData
 }
