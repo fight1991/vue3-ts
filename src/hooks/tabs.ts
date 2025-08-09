@@ -108,6 +108,9 @@ export class TabsManager {
   closeInActiveTab(name: string) {
     this.tabStore.closeInActiveTab(name)
   }
+  closeOtherTab() {
+    this.tabStore.closeOtherTab()
+  }
 }
 // 导出单例实例
 export const tabsManager = TabsManager.getInstance()
@@ -123,5 +126,6 @@ export const useTabs = () => {
     closeActiveTab: () => tabsManager.closeActiveTab(),
     closeAllTab: () => tabsManager.closeAllTab(),
     closeInActiveTab: (name: string) => tabsManager.closeInActiveTab(name),
+    closeOtherTab: () => tabsManager.closeOtherTab(),
   }
 }

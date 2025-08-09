@@ -1,21 +1,54 @@
 <template>
-  <a-tabs
-    @change="tabChange"
-    v-model:activeKey="activeKey"
-    type="editable-card"
-    hide-add
-    @edit="onEdit"
-  >
-    <a-tab-pane v-for="(pane, index) in tabList" :key="pane.name" :closable="index > 0">
-      <template #tab
-        ><span class="pane-title"> {{ pane.title }}</span></template
-      >
-    </a-tab-pane>
-  </a-tabs>
+  <div class="tab-box">
+    <div class="tab-main">
+      <div class="tab-left">
+        <a-tabs
+          @change="tabChange"
+          v-model:activeKey="activeKey"
+          type="editable-card"
+          hide-add
+          @edit="onEdit"
+        >
+          <a-tab-pane v-for="(pane, index) in tabList" :key="pane.name" :closable="index > 0">
+            <template #tab
+              ><span class="pane-title"> {{ pane.title }}</span></template
+            >
+          </a-tab-pane>
+        </a-tabs>
+      </div>
+    </div>
+    <div class="tab-right">
+      <a-dropdown :trigger="['click']" placement="bottomRight">
+        <a-button type="text" class="tab-dropdown-btn">
+          <template #icon>
+            <DownOutlined />
+          </template>
+        </a-button>
+        <template #overlay>
+          <a-menu @click="handleMenuClick">
+            <a-menu-item key="closeAll" :disabled="tabList.length <= 1">
+              <template #icon>
+                <CloseOutlined />
+              </template>
+              关闭所有页签
+            </a-menu-item>
+            <a-menu-item key="closeOthers" :disabled="tabList.length <= 1">
+              <template #icon>
+                <CloseCircleOutlined />
+              </template>
+              关闭其它页签
+            </a-menu-item>
+            <a-menu-divider />
+          </a-menu>
+        </template>
+      </a-dropdown>
+    </div>
+  </div>
 </template>
 <script lang="ts" setup>
 import type { Key } from 'ant-design-vue/es/_util/type'
 import { computed, onMounted, ref, watch } from 'vue'
+import { CloseCircleOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons-vue'
 import { useTabStore } from '@/stores/tab'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
@@ -60,9 +93,36 @@ const onEdit = (e: Key | MouseEvent | KeyboardEvent, action: 'add' | 'remove') =
     }
   }
 }
+
+const handleMenuClick = (info: { key: Key }) => {
+  const key = String(info.key)
+  switch (key) {
+    case 'closeAll':
+      tabs.closeAllTab()
+      break
+    case 'closeOthers':
+      tabs.closeOtherTab()
+      break
+
+    default:
+      break
+  }
+}
 </script>
 
 <style scoped lang="scss">
+.tab-box {
+  display: flex;
+  .tab-main {
+    flex: 1;
+    overflow: hidden;
+    .tab-left {
+      width: 100%;
+    }
+    .tab-right {
+    }
+  }
+}
 .pane-title {
   // 禁止框选
   user-select: none;

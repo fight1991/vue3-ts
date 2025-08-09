@@ -90,11 +90,11 @@ export const useTabStore = defineStore('tab', () => {
   }
 
   // 关闭其他页签
-  const closeOtherTab = (tabInfo: TabItemProps) => {
+  const closeOtherTab = () => {
     const temp = { ...currentTabInfo.value }
-    tabList.value.splice(1)
+
     if (temp.name === 'tab-index') return
-    tabList.value.push(tabConst.value)
+    tabList.value = [tabConst.value, currentTabInfo.value as TabItemProps]
   }
   // 重置标签title
   const resetTabTitle = (title: string) => {

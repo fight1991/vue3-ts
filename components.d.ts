@@ -8,15 +8,18 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AButton: typeof import('ant-design-vue/es')['Button']
     AdminHeader: typeof import('./src/components/AdminHeader.vue')['default']
     AdminLayout: typeof import('./src/components/AdminLayout.vue')['default']
     AdminSidebar: typeof import('./src/components/AdminSidebar.vue')['default']
     AdminTabs: typeof import('./src/components/AdminTabs.vue')['default']
+    ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     ALayout: typeof import('ant-design-vue/es')['Layout']
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
     ALayoutHeader: typeof import('ant-design-vue/es')['LayoutHeader']
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     AMenu: typeof import('ant-design-vue/es')['Menu']
+    AMenuDivider: typeof import('ant-design-vue/es')['MenuDivider']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
