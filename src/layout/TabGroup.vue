@@ -1,59 +1,65 @@
 <template>
-  <a-tabs v-model:activeKey="activeKey" type="editable-card" @edit="onEdit">
-    <a-tab-pane v-for="pane in panes" :key="pane.key" :tab="pane.title" :closable="pane.closable">
-      {{ pane.content }}
+  <a-tabs
+    @change="tabChange"
+    v-model:activeKey="tabStore.activeTab"
+    type="editable-card"
+    @edit="onEdit"
+  >
+    <a-tab-pane v-for="(pane, index) in tabList" :key="pane.name" :closable="index > 0">
+      <template #tab
+        ><span class="pane-title"> {{ pane.title }}解决 </span></template
+      >
     </a-tab-pane>
   </a-tabs>
 </template>
 <script lang="ts" setup>
 import type { Key } from 'ant-design-vue/es/_util/type'
-import { ref } from 'vue'
-interface TabPaneProps {
-  title?: string
-  content?: string
-  key?: string
-  closable?: boolean
-}
-const panes = ref<TabPaneProps[]>([
-  { title: 'Tab 1', content: 'Content of Tab 1', key: '1' },
-  { title: 'Tab 2', content: 'Content of Tab 2', key: '2' },
-  { title: 'Tab 3', content: 'Content of Tab 3', key: '3', closable: false },
-])
-
-const activeKey = ref(panes.value[0].key)
-
-const newTabIndex = ref(0)
-
-const add = () => {
-  activeKey.value = `newTab${++newTabIndex.value}`
-  panes.value.push({ title: 'New Tab', content: 'Content of new Tab', key: activeKey.value })
-}
-
-const remove = (targetKey: Key) => {
-  let lastIndex = 0
-  panes.value.forEach((pane, i) => {
-    if (pane.key === targetKey) {
-      lastIndex = i - 1
+import { computed, onMounted, ref, watch } from 'vue'
+import { useTabStore } from '@/stores/tab'
+import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
+import { useTabs } from '@/hooks/tabs'
+const tabs = useTabs()
+const route = useRoute()
+const tabStore = useTabStore()
+const tabList = computed(() => tabStore.tabList)
+const activeKey = ref<string>()
+// onMounted(() => {
+//   activeKey.value = tabStore.activeTab
+// })
+// 监听路由
+watch(
+  () => route.path,
+  (newVal) => {
+    const activeTab = tabStore.activeTab
+    if (newVal !== activeTab) {
+      tabStore.setActiveTab(newVal)
     }
-  })
-  panes.value = panes.value.filter((pane) => pane.key !== targetKey)
-  if (panes.value.length && activeKey.value === targetKey) {
-    if (lastIndex >= 0) {
-      activeKey.value = panes.value[lastIndex].key
-    } else {
-      activeKey.value = panes.value[0].key
-    }
-  }
+  },
+  { immediate: true },
+)
+
+const tabChange = (key: Key) => {
+  console.log('tabChange', key)
 }
 
 const onEdit = (e: Key | MouseEvent | KeyboardEvent, action: 'add' | 'remove') => {
-  if (action === 'add') {
-    add()
-  } else {
-    // Only call remove if e is a string or number (Key)
-    if (typeof e === 'string' || typeof e === 'number') {
-      remove(e)
+  if (action === 'remove') {
+    const name = e as string
+    if (e === activeKey.value) {
+      tabs.closeActiveTab()
+    } else {
+      tabs.closeInActiveTab(name)
     }
   }
 }
 </script>
+
+<style scoped lang="scss">
+.pane-title {
+  // 禁止框选
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+</style>

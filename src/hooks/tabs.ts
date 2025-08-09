@@ -94,8 +94,19 @@ export class TabsManager {
         this.tabStore.backTab(tabInfo)
         return
       }
-      this.tabStore.closeActiveTab(tabInfo)
+      this.tabStore.closeActiveTab()
     })
+  }
+  closeActiveTab() {
+    this.tabStore.closeActiveTab()
+    router.push({ ...this.tabStore.currentTabInfo })
+  }
+  closeAllTab() {
+    this.tabStore.closeAllTab()
+    router.push({ ...this.tabStore.currentTabInfo })
+  }
+  closeInActiveTab(name: string) {
+    this.tabStore.closeInActiveTab(name)
   }
 }
 // 导出单例实例
@@ -109,5 +120,8 @@ export const useTabs = () => {
     push: (ops: TabOperateProps) => tabsManager.push(ops),
     replace: (ops: TabOperateProps) => tabsManager.replace(ops),
     back: (ops: TabOperateProps) => tabsManager.back(ops),
+    closeActiveTab: () => tabsManager.closeActiveTab(),
+    closeAllTab: () => tabsManager.closeAllTab(),
+    closeInActiveTab: (name: string) => tabsManager.closeInActiveTab(name),
   }
 }

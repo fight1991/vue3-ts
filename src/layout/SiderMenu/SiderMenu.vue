@@ -24,6 +24,7 @@ import { useMenuDataFromRoute, type MenuItemProps } from '../useMenu'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import type { SelectInfo } from 'ant-design-vue/es/menu/src/interface'
+import { useTabs } from '@/hooks/tabs'
 
 // 解构 useMenuDataFromRoute 的返回值
 const { menuData, getOpenKeysFromPath } = useMenuDataFromRoute<ItemType>()
@@ -33,16 +34,17 @@ const collapsed = ref<boolean>(false)
 
 // 获取当前路由对象
 const route = useRoute()
+const tab = useTabs()
 
 // 刷新浏览器场景时, 侧边栏要展开
 onMounted(() => {
-  openKeys.value = getOpenKeysFromPath(route.path)
-  selectedKeys.value = [route.path]
+  openKeys.value = getOpenKeysFromPath(route.name as string)
+  selectedKeys.value = [route.name as string]
 })
 
 const handleSelect = ({ key }: SelectInfo) => {
-  // 路由跳转
-  router.push(key as string)
+  console.log('handleSelect', key)
+  tab.push({ name: key as string })
 }
 </script>
 

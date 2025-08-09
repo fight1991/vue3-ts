@@ -12,7 +12,7 @@ const defaultTab: TabItemProps = {
 }
 
 export const useTabStore = defineStore('tab', () => {
-  const tabList = ref<TabItemProps[]>([])
+  const tabList = ref<TabItemProps[]>([defaultTab])
   const tabConst = ref<TabItemProps>(defaultTab)
   const activeTab = ref<string>('tab-index')
 
@@ -68,12 +68,12 @@ export const useTabStore = defineStore('tab', () => {
   }
 
   // 关闭非激活的页签
-  const closeInActiveTab = (tabInfo: TabItemProps) => {
-    const tabIndex = tabList.value.findIndex((v) => v.name === tabInfo.name)
+  const closeInActiveTab = (name: string) => {
+    const tabIndex = tabList.value.findIndex((v) => v.name === name)
     tabList.value.splice(tabIndex, 1)
   }
   // 关闭激活的页签并激活相邻的页签
-  const closeActiveTab = (tabInfo: TabItemProps) => {
+  const closeActiveTab = () => {
     const tabIndex = tabList.value.findIndex((v) => v.name === activeTab.value)
     const activeTabInfo = tabList.value[tabIndex + 1] || tabList.value[tabIndex - 1]
     tabList.value.splice(tabIndex, 1)

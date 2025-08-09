@@ -16,7 +16,7 @@ const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
     .filter((route) => !route.hidden)
     .map((route) => {
       const menuItem: MenuItemProps = {
-        key: route.path,
+        key: route.name,
         label: route.meta?.title || route.name || route.path,
         // 图标先暂时这么写
         icon: () => h(MailOutlined),
@@ -70,7 +70,7 @@ export const useMenuDataFromRoute = <T>() => {
 
   return {
     menuData,
-    getOpenKeysFromPath: (currentPath: string) =>
-      getOpenKeysFromPath(menuData.value as MenuItemProps[], currentPath),
+    getOpenKeysFromPath: (currentPathName: string) =>
+      getOpenKeysFromPath(menuData.value as MenuItemProps[], currentPathName),
   }
 }

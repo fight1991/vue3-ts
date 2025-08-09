@@ -9,7 +9,7 @@ export interface Meta {
 export interface RoutePath {
   iconName?: string
   path: string
-  name?: string
+  name: string
   hidden?: boolean
   meta?: Meta
   component?: Component
