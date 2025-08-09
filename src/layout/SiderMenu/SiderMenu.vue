@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, onUnmounted, reactive, ref, watchEffect } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, shallowRef, watchEffect } from 'vue'
 
 import type { ItemType } from 'ant-design-vue'
 
@@ -39,6 +39,9 @@ const tab = useTabs()
 // 刷新浏览器场景时, 侧边栏要展开
 onMounted(() => {
   openKeys.value = getOpenKeysFromPath(route.name as string)
+})
+
+watchEffect(() => {
   selectedKeys.value = [route.name as string]
 })
 
