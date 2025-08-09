@@ -1,7 +1,7 @@
-import { ref, computed, nextTick, readonly } from 'vue'
+import { ref, computed, nextTick, readonly, watchEffect } from 'vue'
 import { defineStore } from 'pinia'
 import type { TabItemProps } from '@/types'
-const defaultTab: TabItemProps = {
+const DefaultTab: TabItemProps = {
   title: '首页',
   name: 'tab-index',
   isShow: true,
@@ -10,15 +10,20 @@ const defaultTab: TabItemProps = {
   params: {},
   loadingNum: 0,
 }
+const MaxTabsCounts = 10
 
 export const useTabStore = defineStore('tab', () => {
-  const tabList = ref<TabItemProps[]>([defaultTab])
-  const tabConst = ref<TabItemProps>(defaultTab)
+  const tabList = ref<TabItemProps[]>([DefaultTab])
+  const tabConst = ref<TabItemProps>(DefaultTab)
   const activeTab = ref<string>('tab-index')
   // 刷新页面时正常添加页签
   const isInitTab = ref<boolean>(true)
   const currentTabInfo = computed(() => tabList.value.find((tab) => tab.name === activeTab.value))
-
+  watchEffect(() => {
+    if (tabList.value.length >= MaxTabsCounts) {
+      tabList.value.splice(1, 1)
+    }
+  })
   // 添加新页签
   const addTab = (tab: TabItemProps) => {
     if (!tabList.value.find((t) => t.name === tab.name)) {
