@@ -1,8 +1,9 @@
 import type { Component } from 'vue'
+import type { LocationQueryRaw, RouteParamsRawGeneric } from 'vue-router'
 
 export interface Meta {
   permission?: string
-  title?: string
+  title: string
   component?: Component
 }
 export interface RoutePath {
@@ -14,12 +15,12 @@ export interface RoutePath {
   component?: Component
   children?: RoutePath[]
 }
-export interface TabItemProps<T = Record<string, unknown>, Y = Record<string, unknown>> {
+export interface TabItemProps {
   title: string
   name: string
   isShow: boolean
   components: Component[]
-  query?: T
-  params?: Y
+  query?: LocationQueryRaw
+  params?: RouteParamsRawGeneric
   loadingNum?: number
 }

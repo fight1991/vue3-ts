@@ -1,4 +1,4 @@
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, readonly } from 'vue'
 import { defineStore } from 'pinia'
 import type { TabItemProps } from '@/types'
 const defaultTab: TabItemProps = {
@@ -64,6 +64,7 @@ export const useTabStore = defineStore('tab', () => {
     if (!tempObj) {
       tabList.value.push(tabInfo)
     }
+    setActiveTab(tabInfo.name)
   }
 
   // 关闭非激活的页签
@@ -106,11 +107,6 @@ export const useTabStore = defineStore('tab', () => {
     replaceTab(tabInfo)
   }
 
-  // 添加页签
-  const appendTab = (tabInfo: TabItemProps) => {
-    reOpenTab(tabInfo)
-    setActiveTab(tabInfo.name)
-  }
   // 设置页签loading
   const setCurrentTabLoading = (name: string, loadingStatus: boolean) => {
     const tab = tabList.value.find((t) => t.name === name)
@@ -127,8 +123,8 @@ export const useTabStore = defineStore('tab', () => {
     tab.loadingNum = tempNum
   }
   return {
-    tabList,
-    activeTab,
+    tabList: readonly(tabList),
+    activeTab: readonly(activeTab),
     currentTabInfo,
     addTab,
     setActiveTab,
