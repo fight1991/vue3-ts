@@ -54,6 +54,9 @@ import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useTabs } from '@/hooks/tabs'
 import { watchEffect } from 'vue'
+import router from '@/router'
+import type { Tab } from 'ant-design-vue/es/tabs/src/interface'
+import type { TabItemProps } from '@/types'
 const tabs = useTabs()
 const route = useRoute()
 const tabStore = useTabStore()
@@ -81,6 +84,14 @@ watchEffect(() => {
 
 const tabChange = (key: Key) => {
   console.log('tabChange', key)
+  const { name, query, params } = tabList.value.find((v) => v.name === String(key)) as TabItemProps
+  if (name === route.name) return
+  tabStore.setActiveTab(key as string)
+  router.push({
+    name,
+    query,
+    params,
+  })
 }
 
 const onEdit = (e: Key | MouseEvent | KeyboardEvent, action: 'add' | 'remove') => {
