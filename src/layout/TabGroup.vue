@@ -29,14 +29,13 @@ const activeKey = ref<string>()
 // })
 // 监听路由
 watch(
-  () => route.path,
+  () => route.name,
   (newVal) => {
     const activeTab = tabStore.activeTab
     if (newVal !== activeTab) {
-      tabStore.setActiveTab(newVal)
+      tabStore.setActiveTab(newVal as string)
     }
   },
-  { immediate: true },
 )
 
 const tabChange = (key: Key) => {

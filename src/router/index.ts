@@ -4,7 +4,7 @@ import TabView from '@/layout/TabView.vue'
 import MainView from '@/layout/MainView.vue'
 import mainRoutes from './entry'
 import { h } from 'vue'
-console.log(mainRoutes)
+import { afterEach, beforeEach } from './valid'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -29,5 +29,6 @@ const router = createRouter({
     },
   ],
 })
-
+router.beforeEach(beforeEach)
+router.afterEach(afterEach)
 export default router

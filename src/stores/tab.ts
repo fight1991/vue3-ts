@@ -15,7 +15,8 @@ export const useTabStore = defineStore('tab', () => {
   const tabList = ref<TabItemProps[]>([defaultTab])
   const tabConst = ref<TabItemProps>(defaultTab)
   const activeTab = ref<string>('tab-index')
-
+  // 刷新页面时正常添加页签
+  const isInitTab = ref<boolean>(true)
   const currentTabInfo = computed(() => tabList.value.find((tab) => tab.name === activeTab.value))
 
   // 添加新页签
@@ -28,6 +29,9 @@ export const useTabStore = defineStore('tab', () => {
   // 激活当前页签
   const setActiveTab = (name: string) => {
     activeTab.value = name
+  }
+  const setInitTabStatus = (status: boolean) => {
+    isInitTab.value = status
   }
 
   // 刷新页签
@@ -125,6 +129,7 @@ export const useTabStore = defineStore('tab', () => {
   return {
     tabList: readonly(tabList),
     activeTab: readonly(activeTab),
+    isInitTab: readonly(isInitTab),
     currentTabInfo,
     addTab,
     setActiveTab,
@@ -138,5 +143,6 @@ export const useTabStore = defineStore('tab', () => {
     refreshTab,
     replaceTab,
     reOpenTab,
+    setInitTabStatus,
   }
 })
