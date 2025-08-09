@@ -29,11 +29,23 @@ interface MetaInfo {
  * TabsManager.back    关闭当前tab,打开指定tab(通过refresh指定页签是否需要刷新)
  */
 export class TabsManager {
-  private tabStore: ReturnType<typeof useTabStore>
-  constructor() {
-    this.tabStore = useTabStore()
+  private static instance: TabsManager | null = null
+  private _tabStore?: ReturnType<typeof useTabStore>
+  // 私有构造函数，防止外部直接实例化
+  private constructor() {}
+  // 获取单例实例
+  public static getInstance(): TabsManager {
+    if (!TabsManager.instance) {
+      TabsManager.instance = new TabsManager()
+    }
+    return TabsManager.instance
   }
-
+  private get tabStore() {
+    if (!this._tabStore) {
+      this._tabStore = useTabStore()
+    }
+    return this._tabStore
+  }
   /**
    * 处理标签页操作
    * @param opInfo 操作的信息
@@ -86,9 +98,11 @@ export class TabsManager {
     })
   }
 }
+// 导出单例实例
+export const tabsManager = TabsManager.getInstance()
 
-const tabsManager = new TabsManager()
 export const useTabs = () => {
+  const tabsManager = TabsManager.getInstance()
   return {
     manager: tabsManager,
     open: (ops: TabOpenProps) => tabsManager.open(ops),

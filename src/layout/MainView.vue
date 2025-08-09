@@ -25,7 +25,7 @@
             }"
           >
             Content
-            <div style="height: 900px"></div>
+            <TabView />
           </a-layout-content>
         </div>
       </div>
@@ -37,6 +37,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import TabGroup from './TabGroup.vue'
 import SiderMenu from './SiderMenu/SiderMenu.vue'
+import TabView from './TabView.vue'
 
 const collapsed = ref<boolean>(false)
 
