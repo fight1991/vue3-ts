@@ -1,6 +1,8 @@
 <template>
   <a-layout-sider class="custom-sider" :collapsed="props.collapsed" :trigger="null" collapsible>
-    <div class="logo" />
+    <div class="logo">
+      <span class="logo-text">seeker4.0</span>
+    </div>
     <div class="menu-box">
       <div class="menu-scroll">
         <a-menu
@@ -58,6 +60,17 @@ const handleSelect = ({ key }: SelectInfo) => {
   height: 32px;
   background: rgba(255, 255, 255, 0.3);
   margin: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+
+  .logo-text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
 }
 
 .site-layout .site-layout-background {

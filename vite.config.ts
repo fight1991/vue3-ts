@@ -23,6 +23,9 @@ export default defineConfig({
       dts: true,
     }),
   ],
+  server: {
+    open: true,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
