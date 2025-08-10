@@ -8,6 +8,7 @@
           type="editable-card"
           hide-add
           @edit="onEdit"
+          :tab-position="'top'"
         >
           <a-tab-pane v-for="(pane, index) in tabList" :key="pane.name" :closable="index > 0">
             <template #tab

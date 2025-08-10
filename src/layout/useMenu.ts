@@ -1,12 +1,12 @@
 import type { RoutePath } from '@/types'
-import { h, ref, type Component, shallowRef } from 'vue'
+import { ref, type Component, shallowRef, h } from 'vue'
 import mainRoutesPaths from '@/router/entry'
 import type { ItemType } from 'ant-design-vue/es/menu'
 import { MailOutlined } from '@ant-design/icons-vue'
 
 export interface MenuItemProps {
   key: string
-  icon: Component
+  icon?: Component
   label: string
   children?: MenuItemProps[]
 }
@@ -19,9 +19,10 @@ const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
   return routes
     .filter((route) => !route.hidden)
     .map((route) => {
+      const title = route.meta?.title || route.name || route.path
       const menuItem: MenuItemProps = {
         key: route.name,
-        label: route.meta?.title || route.name || route.path,
+        label: title,
         // 图标先暂时这么写
         icon: () => h(MailOutlined),
       }

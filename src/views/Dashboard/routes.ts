@@ -9,7 +9,7 @@ const routes: RoutePath = {
   meta: {
     permission: '',
     title: '首页',
-    component: () => h('div', '我是首页'),
+    component: () => h('div', '欢迎来到管理系统首页'),
   },
 }
 export default routes

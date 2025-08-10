@@ -3,66 +3,66 @@ import { h } from 'vue'
 
 const routes: RoutePath = {
   iconName: 'iconName-orders',
-  path: '/a2',
-  name: 'a2',
+  path: '/system',
+  name: 'system',
   hidden: false,
   meta: {
     permission: '1203000000',
-    title: '一级菜单',
+    title: '系统管理',
   },
   children: [
     {
-      path: '/a2/b1',
-      name: 'a2-b1',
+      path: '/system/users',
+      name: 'system-users',
       meta: {
         permission: '1203010000',
-        title: '二级菜单-1',
+        title: '用户管理',
         component: () => import(/* webpackChunkName: "home" */ './SystemDemo.vue'),
       },
     },
     {
-      path: '/a2/b2',
-      name: 'a2-b2',
+      path: '/system/roles',
+      name: 'system-roles',
       hidden: true,
       meta: {
         permission: '1203010000',
-        title: '二级菜单-2',
+        title: '角色管理',
         component: () => import(/* webpackChunkName: "home2" */ './SystemDemo.vue'),
       },
     },
     {
-      path: '/a2/b3',
-      name: 'a2-b3',
+      path: '/system/permissions',
+      name: 'system-permissions',
       meta: {
         permission: '1203050000',
-        title: '二级菜单-3',
-        component: () => h('div', '企业信息录入'),
+        title: '权限管理',
+        component: () => h('div', '权限管理页面'),
       },
     },
     {
-      path: '/a2/b4',
-      name: 'a2-b4',
+      path: '/system/settings',
+      name: 'system-settings',
       meta: {
         permission: '1203020000',
-        title: '二级菜单-4',
+        title: '系统设置',
       },
       children: [
         {
-          path: '/a2/b4/c1',
-          name: 'a2-b4-c1',
+          path: '/system/settings/basic',
+          name: 'system-settings-basic',
           meta: {
             permission: '1203020000',
-            title: '三级级菜单',
-            component: () => h('div', '三级页面'),
+            title: '基础设置',
+            component: () => h('div', '基础设置页面'),
           },
         },
         {
-          path: '/a2/b4/c2',
-          name: 'a2-b4-c2',
+          path: '/system/settings/advanced',
+          name: 'system-settings-advanced',
           meta: {
             permission: '1203020000',
-            title: '三级级菜单',
-            component: () => h('div', '三级页面'),
+            title: '高级设置',
+            component: () => h('div', '高级设置页面'),
           },
         },
       ],

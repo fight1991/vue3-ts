@@ -4,66 +4,66 @@ import { RouterView } from 'vue-router'
 
 const routes: RoutePath = {
   iconName: 'iconName-orders',
-  path: '/a1',
-  name: 'a1',
+  path: '/dashboard',
+  name: 'dashboard',
   hidden: false,
   meta: {
     permission: '1203000000',
-    title: '一级菜单',
+    title: '工作台',
   },
   children: [
     {
-      path: '/a1/b1',
-      name: 'a1-b1',
+      path: '/dashboard/overview',
+      name: 'dashboard-overview',
       meta: {
         permission: '1203010000',
-        title: '二级菜单-1',
+        title: '数据概览',
         component: () => import(/* webpackChunkName: "home" */ './HomeDemo.vue'),
       },
     },
     {
-      path: '/a1/b2',
-      name: 'a1-b2',
+      path: '/dashboard/analysis',
+      name: 'dashboard-analysis',
       hidden: true,
       meta: {
         permission: '1203010000',
-        title: '二级菜单-2',
+        title: '数据分析',
         component: () => import(/* webpackChunkName: "home2" */ './HomeDemo.vue'),
       },
     },
     {
-      path: '/a1/b3',
-      name: 'a1-b3',
+      path: '/dashboard/reports',
+      name: 'dashboard-reports',
       meta: {
         permission: '1203050000',
-        title: '二级菜单-3',
-        component: () => h('div', '企业信息录入'),
+        title: '报表中心',
+        component: () => h('div', '报表中心页面'),
       },
     },
     {
-      path: '/a1/b4',
-      name: 'a1-b4',
+      path: '/dashboard/workspace',
+      name: 'dashboard-workspace',
       meta: {
         permission: '1203020000',
-        title: '二级菜单-4',
+        title: '工作空间',
       },
       children: [
         {
-          path: '/a1/b4/c1',
-          name: 'a1-b4-c1',
+          path: '/dashboard/workspace/projects',
+          name: 'dashboard-workspace-projects',
           meta: {
             permission: '1203020000',
-            title: '三级级菜单',
-            component: () => h('div', '三级页面'),
+            title: '项目管理',
+            component: () => h('div', '项目管理页面'),
           },
         },
         {
-          path: '/a1/b4/c2',
-          name: 'a1-b4-c2',
+          path: '/dashboard/workspace/tasks',
+          name: 'dashboard-workspace-tasks',
           meta: {
             permission: '1203020000',
-            title: '三级级菜单',
-            component: () => h('div', '三级页面'),
+            title: '任务列表',
+            component: () => h('div', '任务列表页面'),
           },
         },
       ],
