@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/tab/view',
+      redirect: '/main/index',
     },
     {
       path: '/:pathMatch(.*)*',
@@ -22,8 +22,8 @@ const router = createRouter({
       },
     },
     {
-      path: '/tab/view',
-      name: 'tab-view',
+      path: '/main/index',
+      name: 'main-index',
       component: MainView,
       children: [...mainRoutes] as RouteRecordRaw[],
     },

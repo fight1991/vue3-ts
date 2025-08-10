@@ -1,4 +1,4 @@
-import { ref, computed, nextTick, readonly, watchEffect } from 'vue'
+import { ref, computed, nextTick, readonly, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type { TabItemProps } from '@/types'
 const DefaultTab: TabItemProps = {
@@ -18,12 +18,19 @@ export const useTabStore = defineStore('tab', () => {
   const activeTab = ref<string>('tab-index')
   // 刷新页面时正常添加页签
   const isInitTab = ref<boolean>(true)
-  const currentTabInfo = computed(() => tabList.value.find((tab) => tab.name === activeTab.value))
-  watchEffect(() => {
-    if (tabList.value.length >= MaxTabsCounts) {
-      tabList.value.splice(1, 1)
-    }
-  })
+  const currentTabInfo = computed<TabItemProps>(
+    () => tabList.value.find((tab) => tab.name === activeTab.value) ?? tabConst.value,
+  )
+  // 监听 tabList 长度变化，限制最大标签数量
+  watch(
+    () => tabList.value.length,
+    (newLength) => {
+      if (newLength >= MaxTabsCounts) {
+        tabList.value.splice(1, 1)
+      }
+    },
+    { flush: 'sync' },
+  )
   // 添加新页签
   const addTab = (tab: TabItemProps) => {
     if (!tabList.value.find((t) => t.name === tab.name)) {

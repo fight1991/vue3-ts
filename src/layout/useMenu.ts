@@ -1,14 +1,18 @@
 import type { RoutePath } from '@/types'
-import { h, ref, type Component } from 'vue'
+import { h, ref, type Component, shallowRef } from 'vue'
 import mainRoutesPaths from '@/router/entry'
 import type { ItemType } from 'ant-design-vue/es/menu'
 import { MailOutlined } from '@ant-design/icons-vue'
+
 export interface MenuItemProps {
   key: string
   icon: Component
   label: string
   children?: MenuItemProps[]
 }
+
+// 缓存菜单数据
+let cachedMenuData: MenuItemProps[] | null = null
 
 // 递归生成菜单数据，过滤掉为hidden为true的情况, 返回树形结构
 const generateMenu = (routes: RoutePath[]): MenuItemProps[] => {
@@ -63,14 +67,19 @@ export const getOpenKeysFromPath = (menuItems: MenuItemProps[], currentPath: str
 }
 
 export const useMenuDataFromRoute = <T>() => {
-  const menuData = ref<T[]>([])
+  // 使用 shallowRef 优化性能，避免深度响应
+  const menuData = shallowRef<T[]>([])
 
-  // 生成菜单数据
-  menuData.value = generateMenu(mainRoutesPaths) as T[]
+  // 使用缓存机制，避免重复生成菜单数据
+  if (!cachedMenuData) {
+    cachedMenuData = generateMenu(mainRoutesPaths)
+  }
+
+  menuData.value = cachedMenuData as T[]
 
   return {
     menuData,
     getOpenKeysFromPath: (currentPathName: string) =>
-      getOpenKeysFromPath(menuData.value as MenuItemProps[], currentPathName),
+      getOpenKeysFromPath(cachedMenuData || [], currentPathName),
   }
 }

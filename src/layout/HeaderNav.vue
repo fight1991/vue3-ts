@@ -10,6 +10,15 @@
 
     <!-- 右侧用户信息 -->
     <div class="header-right">
+      <!-- 刷新按钮 -->
+      <div
+        v-show="tabStore.currentTabInfo.name !== 'tab-index'"
+        class="refresh-button"
+        @click="refreshcurrPage"
+        title="刷新当前页面"
+      >
+        <ReloadOutlined :style="{ fontSize: '20px' }" />
+      </div>
       <!-- 用户信息下拉菜单 -->
       <a-dropdown placement="bottomRight" :trigger="['click']">
         <div class="user-info">
@@ -45,7 +54,7 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import {
@@ -57,6 +66,8 @@ import {
   QuestionCircleOutlined,
   LogoutOutlined,
 } from '@ant-design/icons-vue'
+import { useTabStore } from '@/stores/tab'
+import type { TabItemProps } from '@/types'
 
 interface UserInfo {
   name: string
@@ -65,7 +76,10 @@ interface UserInfo {
   role?: string
 }
 
+const route = useRoute()
+console.log(route)
 const router = useRouter()
+const tabStore = useTabStore()
 const collapsed = ref<boolean>(false)
 
 // 用户信息
@@ -86,20 +100,21 @@ const toggleCollapsed = () => {
   emit('update:collapsedStatus', collapsed.value)
 }
 
+const refreshcurrPage = () => {
+  tabStore.refreshTab(tabStore.currentTabInfo)
+}
+
 // 用户菜单点击处理
 const handleUserMenuClick = (info: MenuInfo) => {
   const key = String(info.key)
   switch (key) {
     case 'profile':
-      router.push('/profile')
       message.info('跳转到个人中心')
       break
     case 'settings':
-      router.push('/settings')
       message.info('跳转到账户设置')
       break
     case 'help':
-      window.open('/help', '_blank')
       message.info('打开帮助中心')
       break
     case 'logout':
@@ -140,6 +155,23 @@ const handleLogout = () => {
 .header-right {
   display: flex;
   align-items: center;
+  .refresh-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 20px;
+    border-radius: 50%;
+    color: #606266;
+    padding: 2px;
+
+    transition: all 1.5s;
+
+    &:hover {
+      background-color: #d8d8d8;
+      transform: rotate(270deg);
+    }
+  }
 }
 
 .trigger {
