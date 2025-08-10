@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type { MenuItemProps } from '../useMenu'
+import type { MenuItemProps } from './useMenu'
 import { UserOutlined } from '@ant-design/icons-vue'
 interface Iprops {
   menuItem?: MenuItemProps

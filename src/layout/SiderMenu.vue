@@ -1,36 +1,38 @@
 <template>
-  <div class="menu-box">
-    <div class="menu-scroll">
-      <a-menu
-        v-model:selectedKeys="selectedKeys"
-        v-model:openKeys="openKeys"
-        :items="menuData"
-        theme="dark"
-        mode="inline"
-        @select="handleSelect"
-      >
-        <!-- <SiderMenuItem v-for="item in menuData" :key="item?.key" :menuItem="item" /> -->
-      </a-menu>
+  <a-layout-sider class="custom-sider" :collapsed="props.collapsed" :trigger="null" collapsible>
+    <div class="logo" />
+    <div class="menu-box">
+      <div class="menu-scroll">
+        <a-menu
+          v-model:selectedKeys="selectedKeys"
+          v-model:openKeys="openKeys"
+          :items="menuData"
+          theme="dark"
+          mode="inline"
+          @select="handleSelect"
+        >
+          <!-- <SiderMenuItem v-for="item in menuData" :key="item?.key" :menuItem="item" /> -->
+        </a-menu>
+      </div>
     </div>
-  </div>
+  </a-layout-sider>
 </template>
 <script lang="ts" setup>
 import { onMounted, onUnmounted, reactive, ref, shallowRef, watchEffect } from 'vue'
 
 import type { ItemType } from 'ant-design-vue'
 
-import SiderMenuItem from './SiderMenuItem.vue'
-import { useMenuDataFromRoute, type MenuItemProps } from '../useMenu'
+import { useMenuDataFromRoute, type MenuItemProps } from './useMenu'
 import { useRoute } from 'vue-router'
-import router from '@/router'
 import type { SelectInfo } from 'ant-design-vue/es/menu/src/interface'
 import { useTabs } from '@/hooks/tabs'
-
+const props = defineProps<{
+  collapsed?: boolean
+}>()
 // 解构 useMenuDataFromRoute 的返回值
 const { menuData, getOpenKeysFromPath } = useMenuDataFromRoute<ItemType>()
 const selectedKeys = ref<string[]>([])
 const openKeys = ref<string[]>([])
-const collapsed = ref<boolean>(false)
 
 // 获取当前路由对象
 const route = useRoute()
@@ -51,7 +53,28 @@ const handleSelect = ({ key }: SelectInfo) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 16px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+:deep(.ant-layout-sider-children) {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-sider {
+  display: flex;
+  flex-direction: column;
+  .ant-menu {
+    overflow: auto;
+  }
+}
 .menu-box {
   flex: 1;
   overflow: hidden;
