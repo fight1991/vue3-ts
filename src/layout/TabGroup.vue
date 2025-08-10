@@ -21,7 +21,7 @@
       <a-dropdown :trigger="['click']" placement="bottomRight">
         <a-button type="text" class="tab-dropdown-btn">
           <template #icon>
-            <DownOutlined />
+            <SettingOutlined />
           </template>
         </a-button>
         <template #overlay>
@@ -30,13 +30,13 @@
               <template #icon>
                 <CloseOutlined />
               </template>
-              关闭所有页签
+              关闭所有
             </a-menu-item>
             <a-menu-item key="closeOthers" :disabled="tabList.length <= 1">
               <template #icon>
                 <CloseCircleOutlined />
               </template>
-              关闭其它页签
+              关闭其它
             </a-menu-item>
             <a-menu-divider />
           </a-menu>
@@ -48,14 +48,11 @@
 <script lang="ts" setup>
 import type { Key } from 'ant-design-vue/es/_util/type'
 import { computed, onMounted, ref, watch } from 'vue'
-import { CloseCircleOutlined, CloseOutlined, DownOutlined } from '@ant-design/icons-vue'
 import { useTabStore } from '@/stores/tab'
-import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useTabs } from '@/hooks/tabs'
 import { watchEffect } from 'vue'
 import router from '@/router'
-import type { Tab } from 'ant-design-vue/es/tabs/src/interface'
 import type { TabItemProps } from '@/types'
 const tabs = useTabs()
 const route = useRoute()
@@ -129,6 +126,9 @@ const handleMenuClick = (info: { key: Key }) => {
     overflow: hidden;
     .tab-left {
       width: 100%;
+      :deep(.ant-tabs-nav) {
+        margin-bottom: 0;
+      }
     }
     .tab-right {
     }

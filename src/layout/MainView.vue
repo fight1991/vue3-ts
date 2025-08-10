@@ -24,7 +24,6 @@
               minHeight: 'calc(100vh - 64px - 24px - 20px)',
             }"
           >
-            Content
             <TabView />
           </a-layout-content>
         </div>
