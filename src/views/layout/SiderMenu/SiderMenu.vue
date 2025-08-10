@@ -22,7 +22,7 @@ import { onMounted, onUnmounted, reactive, ref, shallowRef, watchEffect } from '
 
 import type { ItemType } from 'ant-design-vue'
 
-import { useMenuDataFromRoute, type MenuItemProps } from './useMenu'
+import { useMenuDataFromRoute, type MenuItemProps } from '../useMenu'
 import { useRoute } from 'vue-router'
 import type { SelectInfo } from 'ant-design-vue/es/menu/src/interface'
 import { useTabs } from '@/hooks/tabs'

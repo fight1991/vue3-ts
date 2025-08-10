@@ -30,9 +30,9 @@
 import { onMounted, reactive, ref } from 'vue'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import TabGroup from './TabGroup.vue'
-import SiderMenu from './SiderMenu.vue'
+import SiderMenu from './SiderMenu/SiderMenu.vue'
 import TabView from './TabView.vue'
-import HeaderNav from './HeaderNav.vue'
+import HeaderNav from './HeaderNav/HeaderNav.vue'
 const collapsed = ref<boolean>(false)
 onMounted(() => {})
 </script>

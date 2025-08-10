@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import TabView from '@/layout/TabView.vue'
-import MainView from '@/layout/MainView.vue'
+import MainView from '@/views/layout/MainView.vue'
 import mainRoutes from './entry'
 import { h } from 'vue'
 import { afterEach, beforeEach } from './valid'

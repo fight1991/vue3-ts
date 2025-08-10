@@ -18,7 +18,7 @@ const routes: RoutePath = {
       meta: {
         permission: '1203010000',
         title: '数据概览',
-        component: () => import(/* webpackChunkName: "home" */ './HomeDemo.vue'),
+        component: () => import(/* webpackChunkName: "home" */ './DataDemo.vue'),
       },
     },
     {
@@ -28,7 +28,7 @@ const routes: RoutePath = {
       meta: {
         permission: '1203010000',
         title: '数据分析',
-        component: () => import(/* webpackChunkName: "home2" */ './HomeDemo.vue'),
+        component: () => import(/* webpackChunkName: "home2" */ './DataDemo.vue'),
       },
     },
     {
