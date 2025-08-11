@@ -74,7 +74,7 @@ export const useTabStore = defineStore('tab', () => {
     setActiveTab(tabInfo.name)
   }
 
-  // 重新打开已经存在的页签
+  // 重新打开已经存在的页签, 没有就添加
   const reOpenTab = (tabInfo: TabItemProps) => {
     const { name } = tabInfo
     const tempObj = tabList.value.find((v) => v.name === name)

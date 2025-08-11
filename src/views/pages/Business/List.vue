@@ -75,7 +75,8 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import type { TableProps, TableColumnsType } from 'ant-design-vue'
-
+import { useTabs } from '@/hooks/tabs'
+const tab = useTabs()
 // 定义Key类型
 type Key = string | number
 
@@ -109,6 +110,10 @@ const selectedRowKeys = ref<Key[]>([])
 const searchForm = reactive<SearchForm>({
   name: '',
   status: '',
+})
+
+onMounted(() => {
+  console.log('我是列表页------> BusinessList mounted')
 })
 
 const pagination = reactive({
@@ -195,7 +200,14 @@ const handleAdd = () => {
 }
 
 const handleEdit = (record: ListItem) => {
-  message.info(`编辑项目: ${record.name}`)
+  tab.replace({
+    name: 'main-business-customers-op',
+    tabTitle: '客户管理-' + '编辑',
+    query: {
+      opType: 'edit',
+      id: 124,
+    },
+  })
 }
 
 const handleView = (record: ListItem) => {

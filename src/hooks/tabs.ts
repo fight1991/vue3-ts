@@ -95,6 +95,7 @@ export class TabsManager {
         return
       }
       this.tabStore.closeActiveTab()
+      this.tabStore.reOpenTab(tabInfo)
     })
   }
   closeActiveTab() {

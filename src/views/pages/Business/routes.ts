@@ -5,6 +5,9 @@ import { RouterView } from 'vue-router'
 const BusinessList = defineAsyncComponent(
   () => import(/* webpackChunkName: "business-list" */ './List.vue'),
 )
+const BusinessEdit = defineAsyncComponent(
+  () => import(/* webpackChunkName: "business-edit" */ './Edit.vue'),
+)
 const routes: RoutePath = {
   iconName: 'iconName-business',
   path: '/main/business',
@@ -24,6 +27,16 @@ const routes: RoutePath = {
         component: BusinessList,
       },
     },
+    {
+      path: '/main/business/customers/op',
+      name: 'main-business-customers-op',
+      meta: {
+        permission: '',
+        title: '客户操作',
+        component: BusinessEdit,
+      },
+    },
+
     {
       path: '/main/business/orders',
       name: 'main-business-orders',
