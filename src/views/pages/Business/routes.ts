@@ -1,6 +1,10 @@
 import type { RoutePath } from '@/types'
-import { h } from 'vue'
-const BusinessList = () => import(/* webpackChunkName: "List" */ './List.vue')
+import { defineAsyncComponent, h } from 'vue'
+import { RouterView } from 'vue-router'
+
+const BusinessList = defineAsyncComponent(
+  () => import(/* webpackChunkName: "business-list" */ './List.vue'),
+)
 const routes: RoutePath = {
   iconName: 'iconName-business',
   path: '/main/business',

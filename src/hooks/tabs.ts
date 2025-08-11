@@ -2,7 +2,7 @@ import router from '@/router'
 import { useTabStore } from '@/stores/tab'
 import type { Meta, TabItemProps } from '@/types'
 import { install } from 'ant-design-vue'
-import { h, type Component } from 'vue'
+import { h, markRaw, type Component } from 'vue'
 import type { LocationQueryRaw, RouteMeta, RouteParamsRawGeneric } from 'vue-router'
 interface TabOperateProps {
   name: string
@@ -62,7 +62,7 @@ export class TabsManager {
       name: opInfo.name,
       title: opInfo.tabTitle || metaInfo.title,
       isShow: true,
-      components: [metaInfo.component ?? h('div', 'no component')],
+      components: [markRaw(metaInfo.component ?? h('div', 'no component'))],
       query: opInfo.query,
       params: opInfo.params,
     })
