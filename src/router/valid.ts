@@ -24,4 +24,5 @@ export const afterEach = (to: RouteLocationNormalized, from: RouteLocationNormal
 
     tabStore.setInitTabStatus(false)
   }
+  document.title = `Seeker - ${to.meta.title ?? to.name}`
 }
