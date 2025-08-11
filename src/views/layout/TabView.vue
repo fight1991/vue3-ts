@@ -21,8 +21,4 @@ const tabStore = useTabStore()
 const tabList = computed(() => tabStore.tabList)
 
 const activeTab = computed(() => tabStore.activeTab)
-
-watchEffect(() => {
-  console.log('tabList---->', tabList.value)
-})
 </script>

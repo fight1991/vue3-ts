@@ -14,7 +14,7 @@ const DefaultTab: TabItemProps = {
 const MaxTabsCounts = 10
 
 export const useTabStore = defineStore('tab', () => {
-  const tabList = shallowRef<TabItemProps[]>([DefaultTab])
+  const tabList = ref<TabItemProps[]>([DefaultTab])
   const tabConst = shallowRef<TabItemProps>(DefaultTab)
   const activeTab = ref<string>('tab-index')
   // 刷新页面时正常添加页签
@@ -50,10 +50,13 @@ export const useTabStore = defineStore('tab', () => {
   // 刷新页签
   const refreshTab = (tabInfo: TabItemProps) => {
     if (!tabInfo.isShow || (tabInfo?.loadingNum && tabInfo?.loadingNum > 0)) return
-    tabInfo.isShow = false
 
+    const tabIndex = tabList.value.findIndex((tab) => tab.name === tabInfo.name)
+    tabInfo.isShow = false
+    tabList.value.splice(tabIndex, 1, { ...tabInfo })
     nextTick().then(() => {
       tabInfo.isShow = true
+      tabList.value.splice(tabIndex, 1, { ...tabInfo })
     })
   }
 
@@ -62,8 +65,14 @@ export const useTabStore = defineStore('tab', () => {
     const { name } = tabInfo
     const tabIndex = tabList.value.findIndex((tab) => tab.name === name)
     if (tabIndex > 0) {
-      tabList.value.splice(tabIndex, 1, tabInfo)
-      refreshTab(tabInfo)
+      tabInfo.isShow = false
+      tabList.value.splice(tabIndex, 1, { ...tabInfo })
+      nextTick().then(() => {
+        tabInfo.isShow = true
+        tabList.value.splice(tabIndex, 1, { ...tabInfo })
+      })
+
+      // refreshTab(tabInfo)
     } else {
       tabList.value.push(tabInfo)
     }
