@@ -211,7 +211,7 @@ const handleSubmit = async (values: FormData) => {
 
   try {
     // 模拟 API 调用
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 500))
 
     console.log('提交的数据:', values)
 

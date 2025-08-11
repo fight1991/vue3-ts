@@ -52,13 +52,9 @@ export const useTabStore = defineStore('tab', () => {
     if (!tabInfo.isShow || (tabInfo?.loadingNum && tabInfo?.loadingNum > 0)) return
     tabInfo.isShow = false
 
-    nextTick(() => {
+    nextTick().then(() => {
       tabInfo.isShow = true
     })
-    const tab = tabList.value.find((t) => t.name === tabInfo.name)
-    if (tab) {
-      tab.loadingNum = (tab.loadingNum || 0) + 1
-    }
   }
 
   // 替换页签
@@ -127,6 +123,8 @@ export const useTabStore = defineStore('tab', () => {
   // 设置页签loading
   const setCurrentTabLoading = (name: string, loadingStatus: boolean) => {
     const tab = tabList.value.find((t) => t.name === name)
+
+    // 防止正在请求时,关闭页签,组件查找不到
     if (!tab) return
 
     let tempNum = tab.loadingNum || 0
