@@ -1,11 +1,12 @@
-import { ref, computed, nextTick, readonly, watch } from 'vue'
+import { ref, computed, nextTick, readonly, watch, markRaw, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import type { TabItemProps } from '@/types'
+import DashboardDemo from '@/views/pages/Dashboard/DashboardDemo.vue'
 const DefaultTab: TabItemProps = {
   title: '首页',
   name: 'tab-index',
   isShow: true,
-  components: [],
+  components: [markRaw(DashboardDemo)],
   query: {},
   params: {},
   loadingNum: 0,
@@ -13,8 +14,8 @@ const DefaultTab: TabItemProps = {
 const MaxTabsCounts = 10
 
 export const useTabStore = defineStore('tab', () => {
-  const tabList = ref<TabItemProps[]>([DefaultTab])
-  const tabConst = ref<TabItemProps>(DefaultTab)
+  const tabList = shallowRef<TabItemProps[]>([DefaultTab])
+  const tabConst = shallowRef<TabItemProps>(DefaultTab)
   const activeTab = ref<string>('tab-index')
   // 刷新页面时正常添加页签
   const isInitTab = ref<boolean>(true)

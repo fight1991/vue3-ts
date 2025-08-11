@@ -9,7 +9,7 @@ const routes: RoutePath = {
   meta: {
     permission: '',
     title: '首页',
-    component: () => h('div', '欢迎来到管理系统首页'),
+    component: () => import('./DashboardDemo.vue'),
   },
 }
 export default routes

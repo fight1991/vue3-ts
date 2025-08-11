@@ -13,6 +13,7 @@ declare module 'vue' {
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
     ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     AdminHeader: typeof import('./src/components/AdminHeader.vue')['default']
     AdminLayout: typeof import('./src/components/AdminLayout.vue')['default']
     AdminSidebar: typeof import('./src/components/AdminSidebar.vue')['default']

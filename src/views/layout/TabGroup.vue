@@ -83,7 +83,7 @@ watchEffect(() => {
 const tabChange = (key: Key) => {
   console.log('tabChange', key)
   const { name, query, params } = tabList.value.find((v) => v.name === String(key)) as TabItemProps
-  if (name === route.name) return
+  // if (name === activeKey.value) return
   tabStore.setActiveTab(key as string)
   router.push({
     name,
