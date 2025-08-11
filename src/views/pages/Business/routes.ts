@@ -3,8 +3,8 @@ import { h } from 'vue'
 
 const routes: RoutePath = {
   iconName: 'iconName-business',
-  path: '/business',
-  name: 'business',
+  path: '/main/business',
+  name: 'main-business',
   hidden: false,
   meta: {
     permission: '1204000000',
@@ -12,8 +12,8 @@ const routes: RoutePath = {
   },
   children: [
     {
-      path: '/business/customers',
-      name: 'business-customers',
+      path: '/main/business/customers',
+      name: 'main-business-customers',
       meta: {
         permission: '1204010000',
         title: '客户管理',
@@ -21,8 +21,8 @@ const routes: RoutePath = {
       },
     },
     {
-      path: '/business/orders',
-      name: 'business-orders',
+      path: '/main/business/orders',
+      name: 'main-business-orders',
       meta: {
         permission: '1204020000',
         title: '订单管理',
@@ -30,16 +30,16 @@ const routes: RoutePath = {
       },
     },
     {
-      path: '/business/products',
-      name: 'business-products',
+      path: '/main/business/products',
+      name: 'main-business-products',
       meta: {
         permission: '1204030000',
         title: '产品管理',
       },
       children: [
         {
-          path: '/business/products/list',
-          name: 'business-products-list',
+          path: '/main/business/products/list',
+          name: 'main-business-products-list',
           meta: {
             permission: '1204030100',
             title: '产品列表',
@@ -47,8 +47,8 @@ const routes: RoutePath = {
           },
         },
         {
-          path: '/business/products/categories',
-          name: 'business-products-categories',
+          path: '/main/business/products/categories',
+          name: 'main-business-products-categories',
           meta: {
             permission: '1204030200',
             title: '产品分类',
@@ -56,8 +56,8 @@ const routes: RoutePath = {
           },
         },
         {
-          path: '/business/products/inventory',
-          name: 'business-products-inventory',
+          path: '/main/business/products/inventory',
+          name: 'main-business-products-inventory',
           meta: {
             permission: '1204030300',
             title: '库存管理',
@@ -67,16 +67,16 @@ const routes: RoutePath = {
       ],
     },
     {
-      path: '/business/finance',
-      name: 'business-finance',
+      path: '/main/business/finance',
+      name: 'main-business-finance',
       meta: {
         permission: '1204040000',
         title: '财务管理',
       },
       children: [
         {
-          path: '/business/finance/revenue',
-          name: 'business-finance-revenue',
+          path: '/main/business/finance/revenue',
+          name: 'main-business-finance-revenue',
           meta: {
             permission: '1204040100',
             title: '收入统计',
@@ -84,8 +84,8 @@ const routes: RoutePath = {
           },
         },
         {
-          path: '/business/finance/expenses',
-          name: 'business-finance-expenses',
+          path: '/main/business/finance/expenses',
+          name: 'main-business-finance-expenses',
           meta: {
             permission: '1204040200',
             title: '支出管理',

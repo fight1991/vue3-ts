@@ -3,8 +3,8 @@ import { h } from 'vue'
 
 const routes: RoutePath = {
   iconName: 'iconName-orders',
-  path: '/system',
-  name: 'system',
+  path: '/main/system',
+  name: 'main-system',
   hidden: false,
   meta: {
     permission: '1203000000',
@@ -12,8 +12,8 @@ const routes: RoutePath = {
   },
   children: [
     {
-      path: '/system/users',
-      name: 'system-users',
+      path: '/main/system/users',
+      name: 'main-system-users',
       meta: {
         permission: '1203010000',
         title: '用户管理',
@@ -21,8 +21,8 @@ const routes: RoutePath = {
       },
     },
     {
-      path: '/system/roles',
-      name: 'system-roles',
+      path: '/main/system/roles',
+      name: 'main-system-roles',
       hidden: true,
       meta: {
         permission: '1203010000',
@@ -31,8 +31,8 @@ const routes: RoutePath = {
       },
     },
     {
-      path: '/system/permissions',
-      name: 'system-permissions',
+      path: '/main/system/permissions',
+      name: 'main-system-permissions',
       meta: {
         permission: '1203050000',
         title: '权限管理',
@@ -40,16 +40,16 @@ const routes: RoutePath = {
       },
     },
     {
-      path: '/system/settings',
-      name: 'system-settings',
+      path: '/main/system/settings',
+      name: 'main-system-settings',
       meta: {
         permission: '1203020000',
         title: '系统设置',
       },
       children: [
         {
-          path: '/system/settings/basic',
-          name: 'system-settings-basic',
+          path: '/main/system/settings/basic',
+          name: 'main-system-settings-basic',
           meta: {
             permission: '1203020000',
             title: '基础设置',
@@ -57,8 +57,8 @@ const routes: RoutePath = {
           },
         },
         {
-          path: '/system/settings/advanced',
-          name: 'system-settings-advanced',
+          path: '/main/system/settings/advanced',
+          name: 'main-system-settings-advanced',
           meta: {
             permission: '1203020000',
             title: '高级设置',

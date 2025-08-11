@@ -3,7 +3,7 @@ import { h } from 'vue'
 import { RouterView } from 'vue-router'
 
 const routes: RoutePath = {
-  path: '/tab/index',
+  path: '/main/index',
   hidden: true,
   name: 'tab-index',
   meta: {
