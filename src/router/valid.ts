@@ -1,4 +1,5 @@
 import { useTabs } from '@/hooks/tabs'
+import { useLoadingStore } from '@/stores/loading'
 import { useTabStore } from '@/stores/tab'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
@@ -7,6 +8,9 @@ export const beforeEach = (
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
+  // 是否是开启全局loading
+  const loadingStore = useLoadingStore()
+  loadingStore.toggleGlobalLoading(!to.path.startsWith('/main'))
   next()
 }
 
