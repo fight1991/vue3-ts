@@ -88,10 +88,10 @@ export class TabsManager {
       this.tabStore.replaceTab(tabInfo)
     })
   }
-  back(ops: TabOperateProps) {
+  redirectTo(ops: TabOperateProps) {
     this.handleTabOperation(ops, (tabInfo) => {
       if (ops.refresh) {
-        this.tabStore.backTab(tabInfo)
+        this.tabStore.redirectTo(tabInfo)
         return
       }
       this.tabStore.closeActiveTab()
@@ -123,7 +123,7 @@ export const useTabs = () => {
     open: (ops: TabOpenProps) => tabsManager.open(ops),
     push: (ops: TabOperateProps) => tabsManager.push(ops),
     replace: (ops: TabOperateProps) => tabsManager.replace(ops),
-    back: (ops: TabOperateProps) => tabsManager.back(ops),
+    redirectTo: (ops: TabOperateProps) => tabsManager.redirectTo(ops),
     closeActiveTab: () => tabsManager.closeActiveTab(),
     closeAllTab: () => tabsManager.closeAllTab(),
     closeInActiveTab: (name: string) => tabsManager.closeInActiveTab(name),

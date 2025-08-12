@@ -240,7 +240,7 @@ const handleReset = () => {
 // 返回上一页
 const handleBack = (refresh: boolean) => {
   console.log('返回上一页, refresh:', refresh)
-  tab.back({
+  tab.redirectTo({
     name: 'main-business-customers',
     refresh,
   })

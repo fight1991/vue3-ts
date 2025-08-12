@@ -71,8 +71,6 @@ export const useTabStore = defineStore('tab', () => {
         tabInfo.isShow = true
         tabList.value.splice(tabIndex, 1, { ...tabInfo })
       })
-
-      // refreshTab(tabInfo)
     } else {
       tabList.value.push(tabInfo)
     }
@@ -121,8 +119,8 @@ export const useTabStore = defineStore('tab', () => {
       temp.title = title
     }
   }
-  // 返回某一个页签
-  const backTab = (tabInfo: TabItemProps) => {
+  // 关闭当前页签，重新打开某一个页签
+  const redirectTo = (tabInfo: TabItemProps) => {
     const tabIndex = tabList.value.findIndex((v) => v.name === activeTab.value)
     tabList.value.splice(tabIndex, 1)
 
@@ -154,7 +152,7 @@ export const useTabStore = defineStore('tab', () => {
     addTab,
     setActiveTab,
     setCurrentTabLoading,
-    backTab,
+    redirectTo,
     closeInActiveTab,
     closeActiveTab,
     closeAllTab,
