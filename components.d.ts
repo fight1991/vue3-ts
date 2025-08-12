@@ -51,6 +51,7 @@ declare module 'vue' {
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     BellOutlined: typeof import('@ant-design/icons-vue')['BellOutlined']
+    CheckOutlined: typeof import('@ant-design/icons-vue')['CheckOutlined']
     CloseCircleOutlined: typeof import('@ant-design/icons-vue')['CloseCircleOutlined']
     CloseOutlined: typeof import('@ant-design/icons-vue')['CloseOutlined']
     DownOutlined: typeof import('@ant-design/icons-vue')['DownOutlined']

@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { KeepAlive } from 'vue'
+import { computed, KeepAlive } from 'vue'
+import { useThemeStore } from './stores/theme'
+
+const themeStore = useThemeStore()
 </script>
 
 <template>
   <a-config-provider
     :theme="{
       token: {
-        colorPrimary: '#00b96b',
+        colorPrimary: themeStore.currentTheme,
       },
     }"
   >
