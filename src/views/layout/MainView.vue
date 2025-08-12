@@ -28,11 +28,10 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
-import TabGroup from './TabGroup.vue'
-import SiderMenu from './SiderMenu/SiderMenu.vue'
-import TabView from './TabView.vue'
-import HeaderNav from './HeaderNav/HeaderNav.vue'
+import TabGroup from '../components/TabGroup.vue'
+import SiderMenu from '@/views/components/SiderMenu/SiderMenu.vue'
+import TabView from '../components/TabView.vue'
+import HeaderNav from '@/views/components/HeaderNav/HeaderNav.vue'
 const collapsed = ref<boolean>(false)
 onMounted(() => {})
 </script>
