@@ -4,14 +4,13 @@ import { computed, KeepAlive } from 'vue'
 import { useThemeStore } from './stores/theme'
 
 const themeStore = useThemeStore()
+const currentThemeToken = computed(() => themeStore.themeToken)
 </script>
 
 <template>
   <a-config-provider
     :theme="{
-      token: {
-        colorPrimary: themeStore.currentTheme,
-      },
+      token: currentThemeToken,
     }"
   >
     <RouterView v-slot="{ Component }">

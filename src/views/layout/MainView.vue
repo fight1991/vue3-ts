@@ -13,7 +13,7 @@
         <div class="content-inner">
           <a-layout-content
             :style="{
-              margin: '12px 10px',
+              margin: '10px',
               padding: '10px',
               background: '#fff',
               minHeight: 'calc(100vh - 64px - 24px - 20px)',

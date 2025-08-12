@@ -122,6 +122,7 @@ const handleMenuClick = (info: { key: Key }) => {
 <style scoped lang="scss">
 .tab-box {
   display: flex;
+  margin-bottom: 2px;
   .tab-main {
     flex: 1;
     overflow: hidden;

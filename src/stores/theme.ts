@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 
 export interface ThemeConfig {
@@ -35,16 +35,19 @@ const themeOptions: ThemeConfig[] = [
   },
 ]
 
-export const useThemeStore = defineStore('store', () => {
+export const useThemeStore = defineStore('theme', () => {
   // State
-  const currentTheme = ref<string>(themeOptions[0].primaryColor)
 
+  const themeToken = reactive({
+    colorPrimary: themeOptions[0].primaryColor,
+    borderRadius: 2,
+  })
   const themeOptionsList = computed(() => themeOptions)
   const setThemeColor = (theme: string) => {
-    currentTheme.value = theme
+    themeToken.colorPrimary = theme
   }
   return {
-    currentTheme,
+    themeToken,
     setThemeColor,
     themeOptionsList,
   }

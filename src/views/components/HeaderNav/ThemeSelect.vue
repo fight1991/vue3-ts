@@ -2,7 +2,7 @@
   <div class="theme-select">
     <a-dropdown trigger="click">
       <template #overlay>
-        <a-menu @click="handleMenuClick" :selected-keys="[currentTheme]">
+        <a-menu @click="handleMenuClick" :selected-keys="[currentThemePrimaryColor]">
           <a-menu-item
             v-for="theme in themeStore.themeOptionsList"
             :key="theme.primaryColor"
@@ -16,9 +16,12 @@
       </template>
       <a-button class="theme-button">
         <div class="button-content">
-          <div class="current-color-indicator" :style="{ backgroundColor: currentTheme }"></div>
-          <span :style="{ color: currentTheme }">主题</span>
-          <DownOutlined :style="{ color: currentTheme }" />
+          <div
+            class="current-color-indicator"
+            :style="{ backgroundColor: currentThemePrimaryColor }"
+          ></div>
+          <span :style="{ color: currentThemePrimaryColor }">主题</span>
+          <DownOutlined :style="{ color: currentThemePrimaryColor }" />
         </div>
       </a-button>
     </a-dropdown>
@@ -35,12 +38,18 @@ interface Iprops {}
 const props = withDefaults(defineProps<Iprops>(), {})
 const themeStore = useThemeStore()
 
-const currentTheme = computed(() => themeStore.currentTheme)
-
+const currentThemePrimaryColor = computed(() => themeStore.themeToken.colorPrimary)
+onMounted(() => {
+  const localThemeToken = localStorage.getItem('localThemeToken')
+  if (localThemeToken) {
+    themeStore.setThemeColor(localThemeToken)
+  }
+})
 // 处理主题切换
 const handleMenuClick = (info: { key: string | number }) => {
   const key = String(info.key)
   themeStore.setThemeColor(key)
+  localStorage.setItem('localThemeToken', key)
 }
 
 onMounted(() => {})
