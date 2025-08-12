@@ -15,7 +15,7 @@ interface TabOperateProps {
 interface TabOpenProps extends TabOperateProps {
   tabId: string
 }
-interface MetaInfo {
+export interface MetaInfo {
   title: string
   component?: Component
 }

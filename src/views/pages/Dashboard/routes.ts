@@ -1,6 +1,10 @@
 import type { RoutePath } from '@/types'
-import { h } from 'vue'
+import { defineAsyncComponent, h } from 'vue'
 import { RouterView } from 'vue-router'
+
+const DashboardDemo = defineAsyncComponent(
+  () => import(/* webpackChunkName: "dashboard" */ './DashboardDemo.vue'),
+)
 
 const routes: RoutePath = {
   path: '/main/index',
@@ -9,7 +13,7 @@ const routes: RoutePath = {
   meta: {
     permission: '',
     title: '首页',
-    component: () => import('./DashboardDemo.vue'),
+    component: DashboardDemo,
   },
 }
 export default routes
