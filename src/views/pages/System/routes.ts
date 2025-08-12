@@ -17,7 +17,7 @@ const routes: RoutePath = {
       meta: {
         permission: '',
         title: '用户管理',
-        component: () => import(/* webpackChunkName: "home" */ './SystemDemo.vue'),
+        component: () => h('div', '用户管理页面'),
       },
     },
     {
@@ -27,7 +27,7 @@ const routes: RoutePath = {
       meta: {
         permission: '',
         title: '角色管理',
-        component: () => import(/* webpackChunkName: "home2" */ './SystemDemo.vue'),
+        component: () => h('div', '角色管理页面'),
       },
     },
     {
