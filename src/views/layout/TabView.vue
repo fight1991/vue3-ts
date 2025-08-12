@@ -25,7 +25,7 @@ const activeTab = computed(() => tabStore.activeTab)
 
 const loadComponents = computed(() => {
   return (item: TabItemProps) => {
-    // 刷新浏览器时, 如果不是首页, 则首页没必要渲染, 只有点击到首页才会加载
+    // 刷新浏览器时, 如果不是首页,则会push新的页签, 那么此时首页没必要渲染, 只有点击到首页才会加载
     if (item.components.length === 0 && item.name === activeTab.value) {
       const metaInfo = router.resolve({ name: item.name }).meta as unknown as MetaInfo
       item.components = [markRaw(metaInfo.component ?? h('div', 'no component'))]
