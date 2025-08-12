@@ -1,7 +1,7 @@
 import type { RoutePath } from '@/types'
 import { RouterView } from 'vue-router'
-
-const modules = import.meta.glob('../views/**/routes.ts', {
+// 读取views/pages目录下的路由文件
+const modules = import.meta.glob('../views/pages/**/routes.ts', {
   eager: true,
   import: 'default',
 })
