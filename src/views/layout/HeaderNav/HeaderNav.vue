@@ -77,7 +77,6 @@ interface UserInfo {
 }
 
 const route = useRoute()
-console.log(route)
 const router = useRouter()
 const tabStore = useTabStore()
 const collapsed = ref<boolean>(false)

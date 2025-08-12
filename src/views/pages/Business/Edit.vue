@@ -147,14 +147,6 @@ const formData = reactive<FormData>({
   remarks: '',
 })
 
-// 标签选项
-const tagOptions = [
-  { label: '热门', value: 'hot' },
-  { label: '新品', value: 'new' },
-  { label: '促销', value: 'promotion' },
-  { label: '限时', value: 'limited' },
-]
-
 // 表单验证规则
 const formRules: Record<string, Rule[]> = {
   name: [
@@ -251,6 +243,8 @@ onMounted(() => {
   if (isEdit.value) {
     loadData()
   }
+
+  console.log('Business Edit 页面已加载')
 })
 </script>
 

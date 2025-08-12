@@ -205,7 +205,7 @@ const handleEdit = (record: ListItem) => {
     tabTitle: '客户管理-' + '编辑',
     query: {
       opType: 'edit',
-      id: 124,
+      id: record.id,
     },
   })
 }
