@@ -1,9 +1,8 @@
 import router from '@/router'
 import { useTabStore } from '@/stores/tab'
-import type { Meta, TabItemProps } from '@/types'
-import { install } from 'ant-design-vue'
+import type { TabItemProps } from '@/types'
 import { h, markRaw, type Component } from 'vue'
-import type { LocationQueryRaw, RouteMeta, RouteParamsRawGeneric } from 'vue-router'
+import type { LocationQueryRaw, RouteParamsRawGeneric } from 'vue-router'
 interface TabOperateProps {
   name: string
   tabTitle?: string
@@ -116,14 +115,27 @@ export class TabsManager {
 // 导出单例实例
 export const tabsManager = TabsManager.getInstance()
 
+/**
+ *
+ * @returns useTabs
+ * 统一对外暴露的hooks, 只适用页签之间的跳转
+ * 通过TabsManager.getInstance()获取单例实例
+ * 提供open, push, replace, redirectTo等方法进行页签操作
+ * 以及关闭当前页签、关闭所有页签、关闭指定页签等功能
+ * @description
+ * 该hooks封装了TabsManager的所有方法，提供了一个简洁的
+ * 接口来管理页签操作。使用时只需调用useTabs()即可获取
+ * tabs.replace()用在从列表页签跳转到详情/编辑/新增页面的场景，
+ * tabs.redirectTo()用在从编辑/新增/详情页面返回列表页的场景。
+ * @example
+ */
 export const useTabs = () => {
   const tabsManager = TabsManager.getInstance()
   return {
-    manager: tabsManager,
-    open: (ops: TabOpenProps) => tabsManager.open(ops),
-    push: (ops: TabOperateProps) => tabsManager.push(ops),
     replace: (ops: TabOperateProps) => tabsManager.replace(ops),
     redirectTo: (ops: TabOperateProps) => tabsManager.redirectTo(ops),
+    open: (ops: TabOpenProps) => tabsManager.open(ops),
+    push: (ops: TabOperateProps) => tabsManager.push(ops),
     closeActiveTab: () => tabsManager.closeActiveTab(),
     closeAllTab: () => tabsManager.closeAllTab(),
     closeInActiveTab: (name: string) => tabsManager.closeInActiveTab(name),
