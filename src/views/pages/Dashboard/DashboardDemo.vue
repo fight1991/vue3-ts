@@ -1,10 +1,5 @@
 <template>
   <div class="dashboard-demo">
-    <div class="header">
-      <h1>Dashboard Demo 页面</h1>
-      <p class="subtitle">这是一个演示页面，展示了基本的布局和功能</p>
-    </div>
-
     <div class="content-grid">
       <!-- 统计卡片 -->
       <div class="stats-section">
@@ -171,21 +166,6 @@ onMounted(() => {
   padding: 20px;
   background: #f5f5f5;
   min-height: 100vh;
-
-  .header {
-    text-align: center;
-    margin-bottom: 30px;
-
-    h1 {
-      color: #1890ff;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      color: #666;
-      font-size: 14px;
-    }
-  }
 
   .content-grid {
     display: grid;
