@@ -2,7 +2,6 @@
   <div>
     <template v-for="item in tabList" :key="item.name + item.tabId">
       <div class="content-item" v-show="item.name === activeTab">
-        {{ item.isShow }}
         <div class="tab-content" v-if="item.isShow">
           <component :is="loadComponents(item)"></component>
           <!-- <div v-show="index>0" class="copy-right">版权所有</div> -->
