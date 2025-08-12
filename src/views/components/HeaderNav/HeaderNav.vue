@@ -19,6 +19,9 @@
       >
         <ReloadOutlined :style="{ fontSize: '20px' }" />
       </div>
+
+      <!-- 主题选择下拉 -->
+      <ThemeSelect />
       <!-- 用户信息下拉菜单 -->
       <a-dropdown placement="bottomRight" :trigger="['click']">
         <div class="user-info">
@@ -56,6 +59,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
+import ThemeSelect from './ThemeSelect.vue'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import {
   MenuUnfoldOutlined,

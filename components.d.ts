@@ -15,6 +15,7 @@ declare module 'vue' {
     AButton: typeof import('ant-design-vue/es')['Button']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     ACol: typeof import('ant-design-vue/es')['Col']
+    AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADatePicker: typeof import('ant-design-vue/es')['DatePicker']
     AdminHeader: typeof import('./src/components/AdminHeader.vue')['default']
     AdminLayout: typeof import('./src/components/AdminLayout.vue')['default']
