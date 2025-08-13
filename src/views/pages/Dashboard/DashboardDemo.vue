@@ -132,17 +132,14 @@ const {
 
 // 快速操作方法
 const handleCreateUser = () => {
-  message.success('跳转到用户创建页面')
   addActivity('当前用户', '访问了用户创建页面')
 }
 
 const handleViewReports = () => {
-  message.info('跳转到报表页面')
   addActivity('当前用户', '查看了报表页面')
 }
 
 const handleSettings = () => {
-  message.info('跳转到系统设置页面')
   addActivity('当前用户', '访问了系统设置页面')
 }
 
