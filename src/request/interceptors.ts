@@ -1,20 +1,16 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { ResponseCodeEnum, type ApiResponse, type ErrorResponseData } from './type'
+import { AccessType, ResponseCodeEnum, type ApiResponse, type ErrorResponseData } from './type'
 import { handleServerError } from './handle'
+import { useAttrs } from 'vue'
+import { useUserStore } from '@/stores/user'
+import { getLanguage, getTimeOffsetInfo } from '@/utils'
 
 // 请求拦截器
 export const requestResolve = (config: InternalAxiosRequestConfig) => {
-  const token = localStorage.getItem('token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  // 添加时间戳防止缓存
-  if (config.method === 'get') {
-    config.params = {
-      ...config.params,
-      _t: Date.now(),
-    }
-  }
+  const userStore = useUserStore()
+
+  config.headers['Authorization'] = userStore.token
+
   return config
 }
 export const requestReject = (error: unknown) => {

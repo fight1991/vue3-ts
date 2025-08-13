@@ -1,27 +1,37 @@
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { requestReject, requestResolve, responseReject, responseResolve } from './interceptors'
-import type { ApiResponse } from './type'
+import { AccessType, type ApiResponse } from './type'
+import { getLanguage, getTimeOffsetInfo } from '@/utils'
+interface HttpClientConfig {
+  baseURL: string
+  proxyHead: string
+  timeout: number
+}
 
 class HttpClient {
   private static instance: HttpClient
   private axiosInstance: AxiosInstance
-  private constructor() {
+
+  private constructor(config: HttpClientConfig) {
     // 创建axios实例
+    // 接口地址拼接/api, 开发环境中设置代理时用
     this.axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL || '/api',
-      timeout: 10000,
+      baseURL: import.meta.env.NODE_ENV === 'development' ? config.proxyHead : config.baseURL,
+      timeout: config.timeout || 15000,
       headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
+        AccessType: AccessType.WEB,
+        ClientTimeZone: getTimeOffsetInfo(),
+        Language: getLanguage(),
       },
     })
     this.axiosInstance.interceptors.request.use(requestResolve, requestReject)
     this.axiosInstance.interceptors.response.use(responseResolve, responseReject)
   }
   // 获取单例实例
-  public static getInstance(): HttpClient {
+  public static getInstance(config: HttpClientConfig): HttpClient {
     if (!HttpClient.instance) {
-      HttpClient.instance = new HttpClient()
+      HttpClient.instance = new HttpClient(config)
     }
     return HttpClient.instance
   }
@@ -47,5 +57,9 @@ class HttpClient {
 }
 
 // 导出单例实例
-const httpClient = HttpClient.getInstance()
+const httpClient = HttpClient.getInstance({
+  baseURL: import.meta.env.VITE_API_URL || '',
+  proxyHead: '/api',
+  timeout: 15000,
+})
 export default httpClient

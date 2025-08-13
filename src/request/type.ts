@@ -34,6 +34,13 @@ export enum ResponseCodeEnum {
   NOT_FOUND = 404,
   SERVER_ERROR = 500,
 }
+
+export enum AccessType {
+  WEB = 'web', // Web端
+  MINIAPP = 'applet', // 小程序
+  APP = 'app', // App
+  OTHER = 'other', // 其他
+}
 // 定义错误响应数据类型
 export interface ErrorResponseData {
   message?: string
