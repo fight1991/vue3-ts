@@ -205,8 +205,6 @@ const handleSubmit = async (values: FormData) => {
     // 模拟 API 调用
     await new Promise((resolve) => setTimeout(resolve, 500))
 
-    console.log('提交的数据:', values)
-
     if (isEdit.value) {
       message.success('保存成功')
     } else {
