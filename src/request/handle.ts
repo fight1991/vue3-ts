@@ -1,8 +1,11 @@
 import type { AxiosError, AxiosResponse } from 'axios'
-import type { ApiResponse, ErrorResponseData } from './type'
+import { BusinessErrorCode, type ApiResponse, type ServerError } from './type'
+import { message as messageApi } from 'ant-design-vue'
+import { useRoute, useRouter } from 'vue-router'
 
-// 服务错误处理
-export const handleServerError = (error: AxiosError<ErrorResponseData>) => {
+let tipsMessage: boolean = false
+// http状态码错误处理
+export const handleServerError = (error: AxiosError<ServerError>) => {
   console.error('请求错误:', error)
   let errorMessage = '网络错误'
 
@@ -49,8 +52,39 @@ export const handleServerError = (error: AxiosError<ErrorResponseData>) => {
   }
   console.log(errorMessage)
 }
+// 处理http200时的业务错误
+export const handleBusinessError = (
+  response: AxiosResponse<ApiResponse<unknown>>,
+): ApiResponse<unknown> => {
+  const { code, message } = response.data
+  if (code !== BusinessErrorCode.SUCCESS) {
+    // token不合法的报错
+    if (code === BusinessErrorCode.UNAUTHORIZED) {
+      // message只提示一次
+      if (tipsMessage) return response.data
+      tipsMessage = true
+      messageApi.error({
+        content: message || '登录状态已过期，请重新登录',
+        duration: 2,
+        onClose: () => {
+          tipsMessage = false
+        },
+      })
 
-export const handleUnauthorized = (): void => {
-  localStorage.removeItem('token')
-  window.location.href = '/login'
+      const route = useRoute()
+      const router = useRouter()
+
+      const targetUrl = route.fullPath || location.pathname + location.search || ''
+
+      router.replace({
+        path: '/login',
+        query: { targetUrl },
+      })
+    } else {
+      // 其他业务报错
+      if (tipsMessage) return response.data
+      messageApi.error(message)
+    }
+  }
+  return response.data
 }

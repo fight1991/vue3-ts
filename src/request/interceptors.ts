@@ -1,5 +1,5 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { AccessType, ResponseCodeEnum, type ApiResponse, type ErrorResponseData } from './type'
+import { AccessType, BusinessErrorCode, type ApiResponse, type ServerError } from './type'
 import { handleServerError } from './handle'
 import { useAttrs } from 'vue'
 import { useUserStore } from '@/stores/user'
@@ -23,14 +23,14 @@ export const responseResolve = (response: AxiosResponse<ApiResponse<unknown>>) =
   const { data } = response
 
   // 业务状态码处理
-  if (data.code === ResponseCodeEnum.SUCCESS) {
+  if (data.code === BusinessErrorCode.SUCCESS) {
     return response
   }
   // 其他业务报错处理
   return response
 }
 
-export const responseReject = (error: AxiosError<ErrorResponseData>) => {
+export const responseReject = (error: AxiosError<ServerError>) => {
   console.error('响应错误:', error)
 
   handleServerError(error)

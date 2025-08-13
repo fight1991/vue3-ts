@@ -43,16 +43,16 @@ export const post = <T, D>(params: RequestOptions<T>) => {
   })
 }
 
-// interface Req {
-//   name: string
-// }
-// interface Res {
-//   res: string
-// }
-// const test = (params: Req): Promise<Res> => {
-//   return get({ url: '/test', data: params, tabLoading: false, globalLoading: false })
-// }
+interface Req {
+  name: string
+}
+interface Res {
+  res: string
+}
+const test = (params: Req): Promise<Res> => {
+  return get({ url: '/test', data: params, tabLoading: false, globalLoading: false })
+}
 
-// test({ name: 'example' }).then((res) => {
-//   console.log(res.res)
-// })
+test({ name: 'example' }).then((res) => {
+  console.log(res.res)
+})
