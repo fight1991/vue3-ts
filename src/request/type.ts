@@ -33,7 +33,6 @@ export enum AccessType {
 export interface Pagination {
   pageIndex: number
   pageSize: number
-  total: number
 }
 
 export interface RequestOptions<T> {
@@ -42,7 +41,8 @@ export interface RequestOptions<T> {
   tabLoading?: boolean
   globalLoading?: boolean
 }
-export interface RequestOptionsWithPage<T> extends RequestOptions<T> {
+export interface WithPage<T> {
+  data: T
   page: Pagination
 }
 
