@@ -115,6 +115,21 @@ import {
   PlusOutlined,
 } from '@ant-design/icons-vue'
 import { useDashboard, type Todo } from './useDashboard'
+import { getUserInfo, getUserList } from '@/views/api/users'
+
+onMounted(() => {
+  getUserInfo({ userId: '134', name: '34', avatar: '33' })
+  getUserList({
+    data: { userId: '123' },
+    page: {
+      pageIndex: 1,
+      pageSize: 10,
+    },
+  }).then((res) => {
+    console.log(res.data)
+    console.log(res.page)
+  })
+})
 
 // 使用组合式函数
 const {

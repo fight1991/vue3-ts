@@ -31,8 +31,6 @@ export const responseResolve = (response: AxiosResponse<ApiResponse<unknown>>) =
 }
 
 export const responseReject = (error: AxiosError<ServerError>) => {
-  console.error('响应错误:', error)
-
   handleServerError(error)
 
   return Promise.reject(error)

@@ -37,14 +37,3 @@ export const getUserList = (params: WithPage<userListReq>): Promise<WithPage<use
     data: params,
   })
 }
-
-getUserList({
-  data: { userId: '123' },
-  page: {
-    pageIndex: 1,
-    pageSize: 10,
-  },
-}).then((res) => {
-  console.log(res.data)
-  console.log(res.page)
-})

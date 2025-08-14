@@ -6,7 +6,7 @@ import type { AxiosRequestConfig } from 'axios'
 
 const tabStore = useTabStore()
 const loadingStore = useLoadingStore()
-const resolveFetch = async <T, D>(params: RequestOptions<T>, reqConfig: AxiosRequestConfig) => {
+const resolveFetch = async <T, R>(params: RequestOptions<T>, reqConfig: AxiosRequestConfig) => {
   const tabName = tabStore.currentTabInfo.name
   const { tabLoading = true, globalLoading } = params
   const loadingStatus = globalLoading || loadingStore.isGlobalLoading
@@ -15,7 +15,7 @@ const resolveFetch = async <T, D>(params: RequestOptions<T>, reqConfig: AxiosReq
     loadingStore.setLoadingStatus('open', tabName, loadingStatus)
   }
   try {
-    const response = await httpClient.request<D>(reqConfig)
+    const response = await httpClient.request<R>(reqConfig)
 
     return response
   } catch (error) {
@@ -27,18 +27,18 @@ const resolveFetch = async <T, D>(params: RequestOptions<T>, reqConfig: AxiosReq
   }
 }
 // GET请求
-export const httpGet = <T = unknown, D = unknown>(params: RequestOptions<T>) => {
-  return resolveFetch<T, D>(params, {
+export const httpGet = <T = unknown, R = unknown>(params: RequestOptions<T>) => {
+  return resolveFetch<T, R>(params, {
     method: 'GET',
     url: params.url,
-    params: params,
+    params: params.data,
   })
 }
 // POST请求
-export const httpPost = <T, D = unknown>(params: RequestOptions<T>) => {
-  return resolveFetch<T, D>(params, {
+export const httpPost = <T, R = unknown>(params: RequestOptions<T>) => {
+  return resolveFetch<T, R>(params, {
     method: 'POST',
     url: params.url,
-    data: params,
+    data: params.data,
   })
 }

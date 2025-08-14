@@ -1,12 +1,27 @@
 import type { AxiosError, AxiosResponse } from 'axios'
 import { BusinessErrorCode, type ApiResponse, type ServerError } from './type'
-import { message as messageApi } from 'ant-design-vue'
+import { message, message as messageApi } from 'ant-design-vue'
 import { useRoute, useRouter } from 'vue-router'
 
-let tipsMessage: boolean = false
+class ShowMessageOnce {
+  private messagesList: string[] = []
+  constructor() {}
+  showMsg = (msg: string) => {
+    const msgIndex = this.messagesList.indexOf(msg)
+    if (msgIndex >= 0) return
+    this.messagesList.push(msg)
+    message.error({
+      content: msg,
+      duration: 2,
+      onClose: () => {
+        this.messagesList.splice(msgIndex, 1)
+      },
+    })
+  }
+}
+const messageOnceInstance = new ShowMessageOnce()
 // http状态码错误处理
 export const handleServerError = (error: AxiosError<ServerError>) => {
-  console.error('请求错误:', error)
   let errorMessage = '网络错误'
 
   if (error.response) {
@@ -16,6 +31,7 @@ export const handleServerError = (error: AxiosError<ServerError>) => {
       case 401:
         errorMessage = '未授权，请重新登录'
         // 处理登录逻辑，例如跳转到登录页面
+
         break
       case 403:
         errorMessage = '拒绝访问'
@@ -50,7 +66,7 @@ export const handleServerError = (error: AxiosError<ServerError>) => {
   } else {
     errorMessage = error.message || '请求失败'
   }
-  console.log(errorMessage)
+  messageOnceInstance.showMsg(errorMessage)
 }
 // 处理http200时的业务错误
 export const handleBusinessError = (
@@ -60,16 +76,8 @@ export const handleBusinessError = (
   if (code !== BusinessErrorCode.SUCCESS) {
     // token不合法的报错
     if (code === BusinessErrorCode.UNAUTHORIZED) {
+      messageOnceInstance.showMsg(message || '登录状态已过期，请重新登录')
       // message只提示一次
-      if (tipsMessage) return response.data
-      tipsMessage = true
-      messageApi.error({
-        content: message || '登录状态已过期，请重新登录',
-        duration: 2,
-        onClose: () => {
-          tipsMessage = false
-        },
-      })
 
       const route = useRoute()
       const router = useRouter()
@@ -80,10 +88,11 @@ export const handleBusinessError = (
         path: '/login',
         query: { targetUrl },
       })
+      return response.data
     } else {
       // 其他业务报错
-      if (tipsMessage) return response.data
-      messageApi.error(message)
+      messageOnceInstance.showMsg(message)
+      return response.data
     }
   }
   return response.data
