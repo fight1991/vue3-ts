@@ -63,7 +63,11 @@
       <div class="activities-section">
         <h2>最近活动</h2>
         <div class="activity-list">
-          <div v-for="activity in activities" :key="activity.id" class="activity-item">
+          <div
+            v-for="activity in activities"
+            :key="activity.id"
+            class="activity-item"
+          >
             <div class="activity-avatar">
               <a-avatar>{{ activity.user.charAt(0) }}</a-avatar>
             </div>
@@ -87,7 +91,10 @@
             class="todo-item"
             :class="{ completed: todo.completed }"
           >
-            <a-checkbox v-model:checked="todo.completed" @change="handleTodoChange(todo)">
+            <a-checkbox
+              v-model:checked="todo.completed"
+              @change="handleTodoChange(todo)"
+            >
               {{ todo.title }}
             </a-checkbox>
             <span class="todo-priority" :class="todo.priority">
@@ -118,16 +125,14 @@ import { useDashboard, type Todo } from './useDashboard'
 import { getUserInfo, getUserList } from '@/views/api/users'
 
 onMounted(() => {
-  getUserInfo({ userId: '134', name: '34', avatar: '33' })
+  // getUserInfo({ userId: '134', name: '34', avatar: '33' }).then((res) => {
+  //   console.log(res)
+  // })
   getUserList({
-    data: { userId: '123' },
-    page: {
-      pageIndex: 1,
-      pageSize: 10,
-    },
+    data: { userId: '14' },
+    page: { pageIndex: 1, pageSize: 10 },
   }).then((res) => {
-    console.log(res.data)
-    console.log(res.page)
+    console.log('res=====', res)
   })
 })
 

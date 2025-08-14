@@ -1,5 +1,5 @@
 import { httpPost } from '@/request'
-import type { WithPage } from '@/request/type'
+import type { Result, WithPage } from '@/request/type'
 interface userInfoReq {
   userId: string
   name: string
@@ -12,7 +12,9 @@ interface userInfoRes {
   phone: string
 }
 // 获取用户信息
-export const getUserInfo = (params: userInfoReq): Promise<userInfoRes> => {
+export const getUserInfo = (
+  params: userInfoReq,
+): Promise<Result<userInfoRes>> => {
   return httpPost({
     url: '/user/info',
     data: params,
@@ -31,7 +33,9 @@ interface userListItem {
   phone: string
   age: string
 }
-export const getUserList = (params: WithPage<userListReq>): Promise<WithPage<userListItem[]>> => {
+export const getUserList = (
+  params: WithPage<userListReq>,
+): Promise<Result<userListItem[]>> => {
   return httpPost({
     url: '/user/list',
     data: params,

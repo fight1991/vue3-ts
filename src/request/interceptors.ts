@@ -1,5 +1,14 @@
-import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { AccessType, BusinessErrorCode, type ApiResponse, type ServerError } from './type'
+import type {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios'
+import {
+  AccessType,
+  BusinessErrorCode,
+  type ApiResponse,
+  type ServerError,
+} from './type'
 import { handleBusinessError, handleServerError } from './handle'
 import { useAttrs } from 'vue'
 import { useUserStore } from '@/stores/user'
@@ -19,10 +28,11 @@ export const requestReject = (error: unknown) => {
 }
 
 // 响应拦截器
-export const responseResolve = (response: AxiosResponse<ApiResponse<unknown>>) => {
+export const responseResolve = (
+  response: AxiosResponse<ApiResponse<unknown>>,
+) => {
   // 业务状态码处理
   handleBusinessError(response)
-  // 其他业务报错处理
   return response
 }
 

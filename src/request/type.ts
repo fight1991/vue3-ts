@@ -1,3 +1,5 @@
+import type { AxiosError } from 'axios'
+
 export enum BusinessErrorCode {
   SUCCESS = '0000', // 成功
   BUSINESS_ERROR = '0001', // 业务异常
@@ -47,13 +49,17 @@ export interface WithPage<T> {
 }
 
 // API ResponseData
-export interface ApiResponse<T> {
+export interface ApiResponse<R> {
   code: BusinessErrorCode
-  data: T
+  data: R
+  page?: Pagination
   message: string
   messageCode: string
 }
 
-export interface ApiRequestWithPage<T> extends ApiResponse<T> {
-  page: Pagination
+export interface Result<R> {
+  data?: R
+  page?: Pagination
+  other?: ApiResponse<R>
+  error?: AxiosError
 }
