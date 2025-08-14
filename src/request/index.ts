@@ -26,6 +26,7 @@ const resolveFetch = async <T, R>(params: RequestOptions<T>, reqConfig: AxiosReq
     }
   }
 }
+
 // GET请求
 export const httpGet = <T = unknown, R = unknown>(params: RequestOptions<T>) => {
   return resolveFetch<T, R>(params, {
@@ -40,5 +41,16 @@ export const httpPost = <T, R = unknown>(params: RequestOptions<T>) => {
     method: 'POST',
     url: params.url,
     data: params.data,
+  })
+}
+
+const test = () => {
+  httpPost({
+    url: '/test',
+    data: {
+      key: 'value',
+    },
+  }).catch((err) => {
+    console.error(err)
   })
 }

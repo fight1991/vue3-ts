@@ -48,7 +48,7 @@ class HttpClient {
   // 通用请求方法
   public async request<T = unknown>(config: AxiosRequestConfig): Promise<T> {
     try {
-      const response: ApiResponse<T> = await this.axiosInstance(config)
+      const response = await this.axiosInstance(config)
       return response.data
     } catch (error) {
       throw error

@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { AccessType, BusinessErrorCode, type ApiResponse, type ServerError } from './type'
-import { handleServerError } from './handle'
+import { handleBusinessError, handleServerError } from './handle'
 import { useAttrs } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { getLanguage, getTimeOffsetInfo } from '@/utils'
@@ -20,12 +20,8 @@ export const requestReject = (error: unknown) => {
 
 // 响应拦截器
 export const responseResolve = (response: AxiosResponse<ApiResponse<unknown>>) => {
-  const { data } = response
-
   // 业务状态码处理
-  if (data.code === BusinessErrorCode.SUCCESS) {
-    return response
-  }
+  handleBusinessError(response)
   // 其他业务报错处理
   return response
 }

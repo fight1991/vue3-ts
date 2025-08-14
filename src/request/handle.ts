@@ -69,9 +69,7 @@ export const handleServerError = (error: AxiosError<ServerError>) => {
   messageOnceInstance.showMsg(errorMessage)
 }
 // 处理http200时的业务错误
-export const handleBusinessError = (
-  response: AxiosResponse<ApiResponse<unknown>>,
-): ApiResponse<unknown> => {
+export const handleBusinessError = (response: AxiosResponse<ApiResponse<unknown>>): void => {
   const { code, message } = response.data
   if (code !== BusinessErrorCode.SUCCESS) {
     // token不合法的报错
@@ -88,12 +86,9 @@ export const handleBusinessError = (
         path: '/login',
         query: { targetUrl },
       })
-      return response.data
     } else {
       // 其他业务报错
       messageOnceInstance.showMsg(message)
-      return response.data
     }
   }
-  return response.data
 }
